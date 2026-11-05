@@ -1,0 +1,46 @@
+name: Publicar Rotina Glow Up no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Preparar e verificar os arquivos públicos
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s style.css
+          test -s script.js
+          test -s assets/logo.png
+          mkdir -p "$RUNNER_TEMP/site"
+          cp index.html style.css script.js "$RUNNER_TEMP/site/"
+          cp -R assets "$RUNNER_TEMP/site/assets"
+          touch "$RUNNER_TEMP/site/.nojekyll"
+      - name: Enviar o site para publicação
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/site
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
