@@ -1,0 +1,49 @@
+name: Diagnosticar e liberar GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Consultar ou cancelar somente o deployment antigo travado'
+        type: choice
+        options:
+          - inspect
+          - cancel-if-stuck
+        default: inspect
+        required: true
+      commit:
+        description: 'SHA completo do deployment antigo indicado no erro'
+        type: string
+        default: '7786d8741b505c1eb17bf0040feda508867373ec'
+        required: true
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+
+# Mesmo grupo do deploy: manutenção e publicação nunca concorrem neste repositório.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Sem environment: este diagnóstico não cria um novo deployment.
+    steps:
+      - name: Baixar ferramentas de diagnóstico
+        uses: actions/checkout@v4
+      - name: Consultar estado e recuperar somente quando seguro
+        uses: actions/github-script@v7
+        env:
+          RECOVERY_MODE: ${{ inputs.mode }}
+          BLOCKED_COMMIT: ${{ inputs.commit }}
+        with:
+          script: |
+            const recover = require('./.github/scripts/recover-pages.cjs');
+            await recover({ github, context, core,
+              mode: process.env.RECOVERY_MODE,
+              sha: process.env.BLOCKED_COMMIT });
