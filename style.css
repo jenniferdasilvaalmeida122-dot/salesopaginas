@@ -72,3 +72,25 @@
  .rituals article{padding:22px}
  .button,.closing .button{font-size:14px}
 }
+
+/* Três cards em uma faixa com rolagem lateral. */
+.cards{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;padding:6px 0 12px}
+.cards::-webkit-scrollbar{display:none}
+.cards:focus-visible{outline:3px solid #ef80ae;outline-offset:4px}
+.cards .photo-card{flex:0 0 58%;height:auto;aspect-ratio:3/4;min-width:0;scroll-snap-align:start;padding:26px}
+.cards .photo-card h3{font-size:24px}
+.cards .photo-card p{font-size:16px;max-width:none}
+.cards .photo-card .label{font-size:10px;letter-spacing:1px}
+.card-pagination{display:flex;justify-content:center;gap:2px;margin-top:12px}
+.card-pagination button{display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;background:transparent;cursor:pointer}
+.card-pagination button::before{content:'';width:9px;height:9px;border-radius:50%;background:#dededb}
+.card-pagination button[aria-current="true"]::before{background:#626e61}
+.card-pagination button:focus-visible{outline:3px solid #ef80ae;outline-offset:1px;border-radius:50%}
+@media(max-width:600px){
+ .cards{gap:12px}
+ .cards .photo-card{flex-basis:78%;padding:22px;border-radius:18px}
+ .cards .photo-card h3{font-size:22px;line-height:1.3}
+ .cards .photo-card p{font-size:16px;line-height:1.5}
+ .cards .photo-card .label{font-size:10px}
+ .cards .photo-card .round-arrow{width:33px;height:33px;top:14px;right:14px;font-size:17px}
+}
