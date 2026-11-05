@@ -126,3 +126,7 @@
 .hero-action .button,.closing .button{background:#fa4947;color:white}
 .hero-action .button:hover,.closing .button:hover{background:#e83e3c}
 .closing .button span{color:#fa4947}
+
+/* Primeiro card: arte enviada completa, com os textos já incorporados. */
+.cards .card-artwork{padding:0;background:transparent;aspect-ratio:1107/1421;align-self:flex-start}
+.cards .card-artwork img{display:block;width:100%;height:auto;max-width:100%;border-radius:inherit}

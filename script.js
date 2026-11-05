@@ -15,7 +15,7 @@ if (cardTrack) {
   const buttons = cards.map((card, index) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.setAttribute('aria-label', `Ver card ${index + 1}: ${card.querySelector('h3').textContent}`);
+    button.setAttribute('aria-label', `Ver card ${index + 1}: ${card.querySelector('h3')?.textContent || card.querySelector('img')?.alt || 'Sua jornada'}`);
     button.setAttribute('aria-controls', 'journey-cards');
     button.addEventListener('click', () => cardTrack.scrollTo({
       left: cardPosition(card),
