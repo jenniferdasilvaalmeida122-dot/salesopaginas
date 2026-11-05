@@ -25,3 +25,15 @@ Menu móvel, navegação por seções e perguntas expansíveis funcionam sem ser
 URL esperada após o primeiro deploy bem-sucedido: https://jenniferdasilvaalmeida122-dot.github.io/salesopaginas/
 
 O plano da conta precisa permitir Pages para a visibilidade do repositório. Repositórios públicos podem usar Pages no GitHub Free. Se um repositório privado exigir plano pago, mantenha-o privado e ajuste o plano, ou decida explicitamente se deseja torná-lo público; o workflow não muda a visibilidade.
+
+## Design e interações
+
+O redesign está no mesmo `index.html`, com tokens de identidade em `:root` de `style.css` para cores, fontes, superfícies e espaçamentos. Novas seções devem reutilizar esses tokens e os componentes existentes, preservando a identidade.
+
+- Navegação inferior no celular com indicação da seção atual; menu com fechamento por Escape e clique externo.
+- Entradas animadas por `IntersectionObserver`, sem ocultar conteúdo quando JavaScript está desativado e respeitando movimento reduzido.
+- Os três cards de jornada permanecem lado a lado no celular.
+- Rituais marcáveis com progresso e persistência em `localStorage`. A contagem é individual ao navegador e reinicia na mudança do dia local; não sincroniza com contas ou servidores. Com armazenamento bloqueado, funciona na visita atual e informa essa limitação.
+- Imagens originais mantidas. Se a rede impedir as fotos, superfícies de cor evitam ícones de imagem quebrada. O carregamento completo das fotos depende da liberação dos hosts documentados.
+
+Não enviar o redesign para `main` antes da aprovação: o workflow dessa branch publica automaticamente no GitHub Pages.
