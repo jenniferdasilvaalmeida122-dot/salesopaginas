@@ -130,3 +130,7 @@
 /* Primeiro card: arte enviada completa, com os textos já incorporados. */
 .cards .card-artwork{padding:0;background:transparent;aspect-ratio:1107/1421;align-self:flex-start}
 .cards .card-artwork img{display:block;width:100%;height:auto;max-width:100%;border-radius:inherit}
+
+/* Oculta somente a margem branca externa da segunda arte, sem alterar o arquivo. */
+.cards .card-habits{aspect-ratio:1047/1385;overflow:hidden}
+.cards .card-habits img{position:absolute;left:-2.961%;top:-.722%;width:105.731%;height:auto;max-width:none;border-radius:0}
