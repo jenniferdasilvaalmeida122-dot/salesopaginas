@@ -121,3 +121,8 @@
  .hero .nav{gap:10px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
  .hero-copy{padding-left:20px;padding-right:20px}
 }
+
+/* Vermelho coral nos botões de chamada que eram rosa. */
+.hero-action .button,.closing .button{background:#fa4947;color:white}
+.hero-action .button:hover,.closing .button:hover{background:#e83e3c}
+.closing .button span{color:#fa4947}
