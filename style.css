@@ -36,3 +36,7 @@
  .hero-visual{height:240px;border-radius:15px}
  .hero-visual img{object-position:58% center}
 }
+
+/* Imagem enviada: preserva a composição vertical completa. */
+.hero-visual{background:transparent;display:flex;justify-content:center}
+.hero-visual img{width:auto;max-width:100%;height:100%;object-fit:contain;object-position:center;border-radius:15px}
