@@ -109,3 +109,15 @@
 .offer-banner[hidden]{display:none}
 .offer-clock{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:600px){.offer-banner{gap:4px 10px;font-size:11px;padding:10px 4px 4px}.offer-clock{font-size:15px}}
+
+/* Faixa contínua, inclusive na área segura dos celulares compatíveis. */
+.hero{margin:0;border-radius:0;padding:0 0 24px}
+.hero .nav{border:0;border-radius:0;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));gap:12px 20px}
+.hero-copy{padding-left:16px;padding-right:16px}
+.hero-visual{max-width:min(900px,calc(100% - 32px))}
+@media(max-width:600px){
+ .hero{margin:0;padding:0 0 24px;border-radius:0}
+ .hero .brand{margin:auto}
+ .hero .nav{gap:10px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+ .hero-copy{padding-left:20px;padding-right:20px}
+}
