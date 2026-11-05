@@ -13,7 +13,7 @@
 
 /* Topo em sequência: título, subtítulo, fotografia e botão. */
 .hero{height:auto;min-height:0;max-height:none;background:var(--paper);color:var(--ink);padding-bottom:24px}
-.hero .nav{position:relative;z-index:2;background:#f7e8ee;border-color:#eadce2}
+.hero .nav{position:relative;z-index:2;background:#e5e5e3;border-color:#d5d5d2}
 .hero-copy{margin:0 auto;padding:42px 0 24px;text-align:center;max-width:900px}
 .hero-copy h1{font-size:clamp(38px,4.8vw,64px);letter-spacing:-.045em}
 .hero-copy>.eyebrow{color:var(--pink)}
