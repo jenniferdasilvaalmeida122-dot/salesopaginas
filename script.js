@@ -27,6 +27,11 @@ function configureEntrances() {
       if (!entry.isIntersecting) return;
       const element = entry.target;
       revealed.add(element);
+      if (element.classList.contains('type-ready')) {
+        revealLines(element);
+        entryObserver.unobserve(element);
+        return;
+      }
       element.classList.add('motion-enter');
       element.addEventListener('animationend', event => {
         if (event.target === element) {
@@ -37,11 +42,11 @@ function configureEntrances() {
       entryObserver.unobserve(element);
     });
   }, { threshold: 0.12 });
-  const groups = document.querySelectorAll('.hero-copy, .section-title, .cycle-list, .rituals');
+  const groups = document.querySelectorAll('.hero-copy, .section-title, .cycle-list, .rituals, .cards');
   groups.forEach(group => [...group.children].forEach((element, index) => {
-    if (!revealed.has(element)) element.style.setProperty('--entry-delay', `${Math.min(index, 2) * 60}ms`);
+    if (!revealed.has(element)) element.style.setProperty('--entry-delay', `${Math.min(index, 2) * 110}ms`);
   }));
-  document.querySelectorAll('.hero-copy > *, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote, .cards, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
+  document.querySelectorAll('.hero-copy > *, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote, .photo-card, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
     if (!revealed.has(element)) entryObserver.observe(element);
   });
 }
@@ -76,9 +81,11 @@ motionPreference.addEventListener('change', () => {
     scrollFrame = 0;
     backgroundSections.forEach(element => element.style.removeProperty('--photo-drift'));
   }
+  document.querySelectorAll('.type-reveal').forEach(element => element.classList.remove('type-reveal'));
   configureEntrances();
   requestBackgroundMotion();
 });
+initializeTypography();
 configureEntrances();
 // O fundo mantém a posição original até a primeira interação.
 function closeMenu(returnFocus = false) {
@@ -94,3 +101,46 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (menu.getAttribute('aria-expanded') === 'true' && !event.target.closest('.nav')) closeMenu();
 });
+
+// Revelação por linhas reais: preserva texto, ênfases e quebras em cada largura.
+function initializeTypography() {
+  document.querySelectorAll('h1, h2, .hero-copy > p:not(.eyebrow), .section-title > p:last-child, .intro, .cycle blockquote p').forEach(element => {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const fragment = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) fragment.append(document.createTextNode(part));
+        else { const span = document.createElement('span'); span.className = 'type-word'; span.textContent = part; fragment.append(span); }
+      });
+      node.replaceWith(fragment);
+    });
+    element.classList.add('type-ready');
+    measureLines(element);
+  });
+}
+function measureLines(element) {
+  let previous = -Infinity;
+  let line = -1;
+  element.querySelectorAll('.type-word').forEach(word => {
+    // offsetTop é estável durante a animação de transform.
+    const top = word.offsetTop;
+    if (Math.abs(top - previous) > 5) { line++; previous = top; }
+    word.style.setProperty('--line-delay', `${Math.min(line, 8) * 120}ms`);
+  });
+  return Math.min(line, 8) * 120;
+}
+function revealLines(element) {
+  if (motionPreference.matches) return;
+  const delay = measureLines(element);
+  element.classList.add('type-reveal');
+  setTimeout(() => element.classList.remove('type-reveal'), delay + (parseInt(element.style.getPropertyValue('--entry-delay'), 10) || 0) + 900);
+}
+let typeResize;
+addEventListener('resize', () => {
+  clearTimeout(typeResize);
+  typeResize = setTimeout(() => document.querySelectorAll('.type-ready').forEach(measureLines), 140);
+});
+document.fonts?.ready.then(() => document.querySelectorAll('.type-ready').forEach(measureLines));
