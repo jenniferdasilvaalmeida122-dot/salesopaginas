@@ -82,3 +82,21 @@ h2 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.035em}
 }
 @keyframes editorial-photo{from{opacity:.4;clip-path:inset(4% 0 0 0 round 20px)}to{opacity:1;clip-path:inset(0 round 20px)}}
 @media(prefers-reduced-motion:reduce){.entry-pending{opacity:1!important}}
+
+/* Ritmo observado na gravação: palavras em sequência e fotografias em leque na entrada. */
+@media(prefers-reduced-motion:no-preference){
+  .type-reveal .type-word{
+    animation-name:reference-word;
+    animation-duration:.95s;
+    animation-timing-function:cubic-bezier(.16,.6,.25,1);
+    animation-delay:calc(var(--entry-delay,0ms) + var(--line-delay,0ms) + var(--word-delay,0ms));
+  }
+  .photo-card.motion-enter{animation-name:reference-card;animation-duration:.95s;transform-origin:50% 90%}
+  .photo-card:nth-child(1){--entry-angle:-4deg}
+  .photo-card:nth-child(2){--entry-angle:0deg}
+  .photo-card:nth-child(3){--entry-angle:4deg}
+  .cycle-list li.motion-enter,.benefit.motion-enter{animation-duration:.85s}
+  .button span{transition:transform .4s cubic-bezier(.16,.6,.25,1)}
+}
+@keyframes reference-word{from{opacity:.08;transform:translateY(.6em)}to{opacity:1;transform:none}}
+@keyframes reference-card{from{opacity:0;transform:translateY(14px) rotate(var(--entry-angle,0deg))}to{opacity:1;transform:none}}

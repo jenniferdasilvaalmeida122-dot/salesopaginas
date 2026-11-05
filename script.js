@@ -132,19 +132,25 @@ function initializeTypography() {
 function measureLines(element) {
   let previous = -Infinity;
   let line = -1;
+  let wordInLine = 0;
+  let longestDelay = 0;
   element.querySelectorAll('.type-word').forEach(word => {
-    // offsetTop é estável durante a animação de transform.
     const top = word.offsetTop;
-    if (Math.abs(top - previous) > 5) { line++; previous = top; }
-    word.style.setProperty('--line-delay', `${Math.min(line, 8) * 120}ms`);
+    if (Math.abs(top - previous) > 5) { line++; previous = top; wordInLine = 0; }
+    const lineDelay = Math.min(line, 8) * 135;
+    const wordDelay = Math.min(wordInLine, 5) * 38;
+    word.style.setProperty('--line-delay', `${lineDelay}ms`);
+    word.style.setProperty('--word-delay', `${wordDelay}ms`);
+    longestDelay = Math.max(longestDelay, lineDelay + wordDelay);
+    wordInLine++;
   });
-  return Math.min(line, 8) * 120;
+  return longestDelay;
 }
 function revealLines(element) {
   if (motionPreference.matches) return;
   const delay = measureLines(element);
   element.classList.add('type-reveal');
-  setTimeout(() => element.classList.remove('type-reveal'), delay + (parseInt(element.style.getPropertyValue('--entry-delay'), 10) || 0) + 900);
+  setTimeout(() => element.classList.remove('type-reveal'), delay + (parseInt(element.style.getPropertyValue('--entry-delay'), 10) || 0) + 1100);
 }
 let typeResize;
 addEventListener('resize', () => {
