@@ -13,16 +13,30 @@
 
 /* Movimento apenas: cores, fontes, medidas, imagens e layout originais preservados. */
 @media(prefers-reduced-motion:no-preference){
-  .motion-enter{animation:glow-enter .55s cubic-bezier(.22,.61,.36,1) both}
+  .motion-enter{animation:glow-enter .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--entry-delay,0ms)}
   .button:active{transform:scale(.97)}
   .photo-card:active{transform:scale(.985)}
   .menu{transition:transform .18s ease}
+  .nav-links a,footer a{transition:opacity .22s ease}
+  .photo-card{transition:transform .3s ease,box-shadow .3s ease}
+  .button{transition:transform .22s ease,background .22s ease,box-shadow .22s ease}
+  .hero{background-position:center calc(56% + var(--photo-drift,0px))}
+  .banner{background-position:center calc(50% + var(--photo-drift,0px))}
+  .faq details[open] p{animation:glow-answer .28s ease-out}
+  @media(hover:hover) and (pointer:fine){
+    .photo-card:hover{box-shadow:0 8px 18px #26262214}
+    .button:hover{box-shadow:0 5px 12px #2626220f}
+  }
   .menu:active{transform:scale(.94)}
   .button span,.round-arrow{transition:transform .22s ease}
   .button:hover span,.photo-card:hover .round-arrow{transform:translateX(2px)}
 }
 @media(max-width:600px) and (prefers-reduced-motion:no-preference){
   .nav-links.open{animation:glow-menu .2s ease-out both}
+  .hero{background-position:58% calc(50% + var(--photo-drift,0px))}
+  .banner{background-position:62% calc(50% + var(--photo-drift,0px))}
 }
 @keyframes glow-enter{from{opacity:.65;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes glow-menu{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+@keyframes glow-answer{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:none}}
