@@ -94,3 +94,11 @@
  .cards .photo-card .label{font-size:10px}
  .cards .photo-card .round-arrow{width:33px;height:33px;top:14px;right:14px;font-size:17px}
 }
+
+/* Montagens ilustrativas: cada card exibe um painel completo da imagem. */
+.cards .photo-card{
+ background-image:linear-gradient(0deg,#20231cf0,transparent 55%),var(--photo);
+ background-size:100% 100%,300% 100%;
+ background-position:center,var(--card-position) center;
+ background-repeat:no-repeat;
+}
