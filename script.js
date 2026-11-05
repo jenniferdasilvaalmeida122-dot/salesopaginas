@@ -27,6 +27,7 @@ function configureEntrances() {
       if (!entry.isIntersecting) return;
       const element = entry.target;
       revealed.add(element);
+      element.classList.remove('entry-pending');
       if (element.classList.contains('type-ready')) {
         revealLines(element);
         entryObserver.unobserve(element);
@@ -41,13 +42,19 @@ function configureEntrances() {
       });
       entryObserver.unobserve(element);
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
   const groups = document.querySelectorAll('.hero-copy, .section-title, .cycle-list, .rituals, .cards');
   groups.forEach(group => [...group.children].forEach((element, index) => {
     if (!revealed.has(element)) element.style.setProperty('--entry-delay', `${Math.min(index, 2) * 110}ms`);
   }));
-  document.querySelectorAll('.hero-copy > *, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote, .photo-card, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
-    if (!revealed.has(element)) entryObserver.observe(element);
+  [...document.querySelector('.hero-copy').children].forEach((element, index) => {
+    if (!revealed.has(element)) element.style.setProperty('--entry-delay', `${[0, 100, 460, 760][index] || 0}ms`);
+  });
+  document.querySelectorAll('.type-ready, .hero-copy > *, .hero-bottom > *, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote > span, .photo-card, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title .eyebrow, .split-title > p, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
+    if (!revealed.has(element)) {
+      element.classList.add('entry-pending');
+      entryObserver.observe(element);
+    }
   });
 }
 // Deslocamento máximo de 2px, sem zoom, troca de foto ou animação contínua.
@@ -72,7 +79,8 @@ addEventListener('scroll', requestBackgroundMotion, { passive: true });
 addEventListener('resize', requestBackgroundMotion);
 document.addEventListener('visibilitychange', requestBackgroundMotion);
 motionPreference.addEventListener('change', () => {
-  document.querySelectorAll('.motion-enter').forEach(element => {
+  document.querySelectorAll('.motion-enter, .entry-pending').forEach(element => {
+    element.classList.remove('entry-pending');
     element.classList.remove('motion-enter');
     element.style.removeProperty('--entry-delay');
   });
@@ -144,3 +152,13 @@ addEventListener('resize', () => {
   typeResize = setTimeout(() => document.querySelectorAll('.type-ready').forEach(measureLines), 140);
 });
 document.fonts?.ready.then(() => document.querySelectorAll('.type-ready').forEach(measureLines));
+
+// Um destino acessado pelo teclado nunca fica aguardando a rolagem.
+document.addEventListener('focusin', event => {
+  const container = event.target.closest('.entry-pending');
+  if (container) {
+    container.classList.remove('entry-pending');
+    revealed.add(container);
+    entryObserver?.unobserve(container);
+  }
+});

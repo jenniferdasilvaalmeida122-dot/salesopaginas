@@ -55,7 +55,7 @@ h2 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.035em}
 @media(prefers-reduced-motion:no-preference){
   .type-reveal .type-word{animation:editorial-line .75s cubic-bezier(.2,.65,.3,1) both;animation-delay:calc(var(--line-delay,0ms) + var(--entry-delay,0ms))}
   .photo-card.motion-enter{animation-duration:.75s}
-  .hero-copy>.button.motion-enter{animation-delay:.5s}
+  .hero-copy>.button.motion-enter{animation-delay:var(--entry-delay,.76s)}
   .rituals article{transition:transform .3s ease,box-shadow .3s ease}
   .button span{transition:transform .3s cubic-bezier(.2,.65,.3,1)}
   .button:active span{transform:translateX(3px) scale(.94)}
@@ -64,6 +64,21 @@ h2 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.035em}
     .button:hover span{transform:translateX(3px)}
   }
 }
-@keyframes editorial-line{from{opacity:0;transform:translateY(.4em);clip-path:inset(0 0 0 0)}to{opacity:1;transform:translateY(0);clip-path:inset(-15% -2% -15% -2%)}}
+@keyframes editorial-line{from{opacity:0;transform:translateY(.55em);clip-path:inset(0 -2% 100% -2%)}to{opacity:1;transform:translateY(0);clip-path:inset(-15% -2% -15% -2%)}}
 @media(max-width:600px){h1{font-size:clamp(48px,13.3vw,56px);letter-spacing:-.05em;line-height:1.06}h2{letter-spacing:-.035em}.photo-card h3{letter-spacing:-.02em}}
 @media(prefers-reduced-motion:reduce){.type-word{animation:none!important;transform:none!important;opacity:1!important;clip-path:none!important}}
+
+/* Ritmo de entrada: cada elemento surge uma vez, sem alterar a composição final. */
+@media(prefers-reduced-motion:no-preference){
+  .entry-pending{opacity:0}
+  .motion-enter{animation-duration:.75s}
+  .about-photo.motion-enter,.faq-photo.motion-enter{animation-name:editorial-photo;animation-duration:1s}
+  .type-reveal .type-word{animation-duration:.85s}
+  .nav-links a{transition:opacity .25s ease,transform .25s ease}
+  @media(hover:hover) and (pointer:fine){
+    .nav-links a:hover{transform:translateY(-1px)}
+    .photo-card:focus-visible{transform:translateY(-3px)}
+  }
+}
+@keyframes editorial-photo{from{opacity:.4;clip-path:inset(4% 0 0 0 round 20px)}to{opacity:1;clip-path:inset(0 round 20px)}}
+@media(prefers-reduced-motion:reduce){.entry-pending{opacity:1!important}}
