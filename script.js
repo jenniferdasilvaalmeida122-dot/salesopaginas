@@ -55,3 +55,29 @@ if (cardTrack) {
   });
   updateCardIndicator();
 }
+
+
+// O preço no checkout é administrado separadamente; este aviso mostra o prazo diário.
+const offerBanner = document.querySelector('.offer-banner');
+if (offerBanner) {
+  const offerDate = document.querySelector('#offer-date');
+  const offerClock = document.querySelector('#offer-clock');
+  const brasiliaClock = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  });
+  function updateOfferCountdown() {
+    const parts = Object.fromEntries(brasiliaClock.formatToParts(new Date()).map(part => [part.type, part.value]));
+    const remaining = 86400 - (Number(parts.hour) * 3600 + Number(parts.minute) * 60 + Number(parts.second));
+    const hours = String(Math.floor(remaining / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor(remaining % 3600 / 60)).padStart(2, '0');
+    const seconds = String(remaining % 60).padStart(2, '0');
+    offerDate.textContent = `${parts.day}/${parts.month}/${parts.year}`;
+    offerDate.dateTime = `${parts.year}-${parts.month}-${parts.day}`;
+    offerClock.textContent = `${hours}:${minutes}:${seconds}`;
+    offerBanner.hidden = false;
+  }
+  updateOfferCountdown();
+  setInterval(updateOfferCountdown, 1000);
+  document.addEventListener('visibilitychange', updateOfferCountdown);
+}
