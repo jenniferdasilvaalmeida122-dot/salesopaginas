@@ -50,7 +50,7 @@ function configureEntrances() {
   [...document.querySelector('.hero-copy').children].forEach((element, index) => {
     if (!revealed.has(element)) element.style.setProperty('--entry-delay', `${[0, 100, 460, 760][index] || 0}ms`);
   });
-  document.querySelectorAll('.type-ready, .hero-copy > *, .hero-bottom > *, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote > span, .photo-card, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title .eyebrow, .split-title > p, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
+  document.querySelectorAll('.type-ready, .hero-copy > *, .hero-visual, .hero-action, .section-title > *, .cycle h2, .cycle-list li, .cycle blockquote > span, .photo-card, .about > div:first-child > .eyebrow, .about h2, .intro, .benefit, .about-photo, .banner > *, .split-title .eyebrow, .split-title > p, .rituals article, .faq-photo, .faq h2, .faq details, .closing > *').forEach(element => {
     if (!revealed.has(element)) {
       element.classList.add('entry-pending');
       entryObserver.observe(element);
@@ -58,7 +58,7 @@ function configureEntrances() {
   });
 }
 // Deslocamento máximo de 2px, sem zoom, troca de foto ou animação contínua.
-const backgroundSections = [...document.querySelectorAll('.hero, .banner')];
+const backgroundSections = [...document.querySelectorAll('.banner')];
 let scrollFrame = 0;
 function updateBackgroundMotion() {
   scrollFrame = 0;
