@@ -413,3 +413,23 @@ footer>p,footer small{color:#d3c5bb}
 .app-preview-theme button[aria-pressed="true"]{background:var(--accent);color:white}
 .app-preview-theme button:focus-visible{outline:3px solid #ad8b76;outline-offset:2px}
 .app-preview-screen[data-theme="dark"]{background:#18181b}
+
+/* Três fotografias em leque no lugar da imagem única do topo. */
+.hero-visual.hero-fan{display:block;position:relative;width:calc(100% - 64px);max-width:660px;height:390px;overflow:visible;border-radius:0;background:transparent;isolation:isolate}
+.fan-card{position:absolute;left:50%;top:4%;width:37%;aspect-ratio:3/4;border-radius:16px;background-image:url('assets/topo-bem-estar.png');background-size:300% 100%;background-repeat:no-repeat;box-shadow:0 8px 20px #38261e0c;transform:translateX(-50%) translateX(var(--fan-x,0%)) rotate(var(--fan-angle,0deg));transform-origin:50% 85%}
+.fan-card-left{--fan-x:-77%;--fan-angle:-10deg;top:10%;background-position:0% center;z-index:1}
+.fan-card-center{background-position:50% center;z-index:2}
+.fan-card-right{--fan-x:77%;--fan-angle:10deg;top:10%;background-position:100% center;z-index:1}
+.fan-card>span{position:absolute;top:12px;left:12px;max-width:calc(100% - 24px);padding:6px 9px;border-radius:7px;background:#fffffff2;color:#38261e;font-size:8px;letter-spacing:.6px;line-height:1.3;white-space:nowrap}
+.hero-fan.media-arrived{animation:none}
+@media(max-width:600px){
+ .hero-visual.hero-fan{width:calc(100% - 64px);height:clamp(205px,64vw,370px)}
+ .fan-card{border-radius:11px}
+ .fan-card>span{top:9px;left:8px;max-width:calc(100% - 16px);padding:5px 6px;font-size:6px;letter-spacing:.2px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .hero-fan.media-arrived .fan-card{animation:fan-open .9s cubic-bezier(.2,.65,.3,1) both}
+ .hero-fan.media-arrived .fan-card-center{animation-delay:.06s}
+ .hero-fan.media-arrived .fan-card-right{animation-delay:.12s}
+}
+@keyframes fan-open{from{opacity:0;transform:translateX(-50%) translateY(12px) rotate(0deg)}to{opacity:1;transform:translateX(-50%) translateX(var(--fan-x,0%)) rotate(var(--fan-angle,0deg))}}
