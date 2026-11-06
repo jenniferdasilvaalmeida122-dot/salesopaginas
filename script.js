@@ -260,42 +260,50 @@ if (heroFan) {
 }
 
 
-// Faixa lenta e contínua, com deslize manual e pausa acessível.
+// Movimento contínuo por transformação; rolagem nativa durante o deslize manual.
 const methodCarousel = document.querySelector('.method-carousel');
 if (methodCarousel) {
   const slides = [...methodCarousel.querySelectorAll('.method-slide')];
   const pauseButton = document.querySelector('.method-pause');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  let inView = false, hovering = false, touching = false, focused = false, paused = false;
-  let frame = 0, previousTime = 0, position = 0, cycle = 0, resumeAt = 0;
-  function readyToMove() {
-    return inView && !document.hidden && !motion.matches && !paused && !hovering && !touching && !focused;
+  const rail = document.createElement('div');
+  rail.className = 'method-rail';
+  slides.forEach(slide => rail.append(slide));
+  methodCarousel.append(rail);
+  const speed = 0.032; // 32 pixels por segundo, independente da taxa de atualização.
+  let animation = null, cycle = 0, inView = false, touching = false, keyboardFocused = false, paused = false;
+  let resumeAt = 0, resumeTimer = 0;
+  function freezeMethods() {
+    if (!animation) return;
+    const position = cycle ? (Number(animation.currentTime || 0) * speed) % cycle : 0;
+    animation.cancel();
+    animation = null;
+    methodCarousel.scrollLeft = position;
   }
-  function measureCycle() {
-    const copy = methodCarousel.querySelector('[data-method-copy]');
+  function measureMethods() {
+    const copy = rail.querySelector('[data-method-copy]');
     cycle = copy ? copy.getBoundingClientRect().left - slides[0].getBoundingClientRect().left : 0;
-    position = methodCarousel.scrollLeft;
   }
-  function animateMethods(time) {
-    frame = 0;
-    if (!readyToMove()) { previousTime = 0; return; }
-    const delta = previousTime ? Math.min(time - previousTime, 50) : 0;
-    previousTime = time;
-    if (time >= resumeAt && cycle > 0) {
-      position = (position + delta * 0.018) % cycle;
-      methodCarousel.scrollLeft = Math.floor(position);
-    } else position = methodCarousel.scrollLeft;
-    frame = requestAnimationFrame(animateMethods);
-  }
-  function syncPlayback() {
-    if (frame) cancelAnimationFrame(frame);
-    frame = 0;
-    previousTime = 0;
-    position = methodCarousel.scrollLeft;
-    if (readyToMove()) frame = requestAnimationFrame(animateMethods);
+  function syncMethods() {
+    clearTimeout(resumeTimer);
+    const enabled = inView && !document.hidden && !motion.matches && !paused && !touching && !keyboardFocused;
+    if (!enabled || performance.now() < resumeAt) {
+      freezeMethods();
+      if (enabled) resumeTimer = setTimeout(syncMethods, Math.max(0, resumeAt - performance.now()) + 20);
+      return;
+    }
+    if (animation || cycle <= 0) return;
+    const position = methodCarousel.scrollLeft % cycle;
+    methodCarousel.scrollLeft = 0;
+    animation = rail.animate([
+      {transform: 'translate3d(0,0,0)'},
+      {transform: `translate3d(-${cycle}px,0,0)`}
+    ], {duration: cycle / speed, iterations: Infinity, easing: 'linear'});
+    animation.currentTime = position / speed;
   }
   function configureMethods() {
-    methodCarousel.querySelectorAll('[data-method-copy]').forEach(copy => copy.remove());
+    freezeMethods();
+    rail.querySelectorAll('[data-method-copy]').forEach(copy => copy.remove());
     pauseButton.hidden = motion.matches;
     if (!motion.matches) {
       slides.forEach(slide => {
@@ -304,40 +312,57 @@ if (methodCarousel) {
         copy.setAttribute('aria-hidden', 'true');
         copy.style.setProperty('--method-offset', getComputedStyle(slide).getPropertyValue('--method-offset'));
         copy.querySelectorAll('img').forEach(image => image.alt = '');
-        methodCarousel.append(copy);
+        rail.append(copy);
       });
     }
-    measureCycle();
-    syncPlayback();
+    measureMethods();
+    syncMethods();
   }
   pauseButton.addEventListener('click', () => {
     paused = !paused;
     pauseButton.setAttribute('aria-pressed', String(paused));
-    pauseButton.textContent = paused ? 'Retomar movimento' : 'Pausar movimento';
-    syncPlayback();
+    pauseButton.setAttribute('aria-label', paused ? 'Retomar animação do carrossel' : 'Pausar animação do carrossel');
+    pauseButton.querySelector('path').setAttribute('d', paused ? 'M8 5v14l11-7z' : 'M7 5h3v14H7zM14 5h3v14h-3z');
+    syncMethods();
   });
-  methodCarousel.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovering = true; syncPlayback(); } });
-  methodCarousel.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { hovering = false; syncPlayback(); } });
-  methodCarousel.addEventListener('pointerdown', () => { touching = true; syncPlayback(); }, {passive: true});
-  function releaseMethods() { touching = false; resumeAt = performance.now() + 1800; syncPlayback(); }
+  methodCarousel.addEventListener('pointerdown', () => { touching = true; keyboardFocused = false; syncMethods(); }, {passive: true});
+  function releaseMethods() {
+    if (!touching) return;
+    touching = false;
+    resumeAt = performance.now() + 700;
+    syncMethods();
+  }
   addEventListener('pointerup', releaseMethods, {passive: true});
   addEventListener('pointercancel', releaseMethods, {passive: true});
-  methodCarousel.addEventListener('wheel', () => { resumeAt = performance.now() + 1800; }, {passive: true});
-  methodCarousel.addEventListener('scroll', () => {
-    if (!readyToMove() || performance.now() < resumeAt) position = methodCarousel.scrollLeft;
+  methodCarousel.addEventListener('wheel', event => {
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) && !event.shiftKey) return;
+    resumeAt = performance.now() + 700;
+    syncMethods();
   }, {passive: true});
-  methodCarousel.addEventListener('focusin', () => { focused = true; syncPlayback(); });
-  methodCarousel.addEventListener('focusout', event => { if (!methodCarousel.contains(event.relatedTarget)) { focused = false; syncPlayback(); } });
+  methodCarousel.addEventListener('scroll', () => {
+    if (animation || motion.matches) return;
+    resumeAt = performance.now() + 700;
+    syncMethods();
+  }, {passive: true});
+  methodCarousel.addEventListener('focusin', () => {
+    keyboardFocused = methodCarousel.matches(':focus-visible');
+    syncMethods();
+  });
+  methodCarousel.addEventListener('focusout', event => {
+    if (!methodCarousel.contains(event.relatedTarget)) { keyboardFocused = false; syncMethods(); }
+  });
   methodCarousel.addEventListener('keydown', event => {
     if (event.target !== methodCarousel || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
     event.preventDefault();
+    keyboardFocused = true;
+    syncMethods();
     methodCarousel.scrollBy({left: (event.key === 'ArrowRight' ? 1 : -1) * (slides[0].offsetWidth + 20), behavior: motion.matches ? 'instant' : 'smooth'});
   });
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncPlayback(); }, {threshold: 0.05}).observe(methodCarousel);
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncMethods(); }, {threshold: 0.05}).observe(methodCarousel);
   } else inView = true;
-  addEventListener('resize', () => { measureCycle(); syncPlayback(); });
-  document.addEventListener('visibilitychange', syncPlayback);
+  addEventListener('resize', () => { freezeMethods(); measureMethods(); syncMethods(); });
+  document.addEventListener('visibilitychange', syncMethods);
   motion.addEventListener('change', configureMethods);
   configureMethods();
 }

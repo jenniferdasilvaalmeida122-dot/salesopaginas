@@ -503,3 +503,9 @@ footer>p,footer small{color:#d3c5bb}
 .method-pause[hidden]{display:none}
 .method-pause:focus-visible{outline:3px solid #ad8b76;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.method-carousel{scroll-snap-type:x proximity}}
+
+/* A faixa se move em subpixels, sem saltos de scroll a cada quadro. */
+.method-carousel{display:block}
+.method-rail{display:flex;gap:inherit;width:100%;transform:translate3d(0,0,0);will-change:transform}
+.method-pause{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;text-decoration:none}
+@media(prefers-reduced-motion:reduce){.method-rail{will-change:auto}}
