@@ -171,3 +171,48 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
   });
   document.querySelectorAll('.hero-visual,.card-artwork,.faq-photo,.banner').forEach(element => editorialObserver.observe(element));
 }
+
+
+// Abas de apresentação: apenas capturas, sem conectar aos dados pessoais do app.
+const previewTabs = [...document.querySelectorAll('[data-preview]')];
+const previewScreens = {
+  habitos: { title: 'Sua constância, um dia de cada vez.', description: 'Crie seus hábitos, defina uma meta diária e acompanhe o que já fez. Você escolhe entre cartões, últimos cinco dias e calendário mensal.', alt: 'Tela Hábitos do HabitKit com metas diárias, progresso de hoje e histórico dos hábitos' },
+  calendario: { title: 'Seu caminho fica registrado.', description: 'Abra um hábito para consultar o calendário, registrar dias anteriores e guardar notas sobre o que ajudou ou dificultou a sua rotina.', alt: 'Tela interna de um hábito com histórico anual, sequência e calendário mensal' },
+  estatisticas: { title: 'Enxergue o seu progresso.', description: 'Veja suas conclusões, a constância e a evolução dos hábitos ao longo do tempo. Pequenos passos que você consegue acompanhar.', alt: 'Tela de Estatísticas do HabitKit com o resumo e a evolução dos hábitos' },
+  'vision-board': { title: 'Dê forma à vida que você deseja.', description: 'Reúna imagens, frases e referências no seu mural. Organize por categorias e escolha suas fotos principais para aparecerem na tela inicial.', alt: 'Tela Vision Board do HabitKit com mural pessoal, imagens favoritas e categorias' }
+};
+function selectPreviewTab(tab) {
+  const key = tab.dataset.preview;
+  const screen = previewScreens[key];
+  if (!screen) return;
+  previewTabs.forEach(button => {
+    const active = button === tab;
+    button.setAttribute('aria-selected', String(active));
+    button.tabIndex = active ? 0 : -1;
+  });
+  document.querySelector('#app-preview-panel').setAttribute('aria-labelledby', tab.id);
+  document.querySelector('#preview-title').textContent = screen.title;
+  document.querySelector('#preview-description').textContent = screen.description;
+  document.querySelector('#preview-step').textContent = `0${previewTabs.indexOf(tab) + 1} / 04`;
+  const image = document.querySelector('#preview-image');
+  image.alt = screen.alt;
+  image.src = `assets/app-preview/${key}.png`;
+  const frame = image.parentElement;
+  frame.scrollTop = 0;
+  frame.classList.remove('is-switching');
+  void frame.offsetWidth;
+  frame.classList.add('is-switching');
+  const list = tab.parentElement;
+  list.scrollTo({ left: Math.max(0, tab.offsetLeft - list.offsetLeft - (list.clientWidth - tab.offsetWidth) / 2), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+}
+previewTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectPreviewTab(tab));
+  tab.addEventListener('keydown', event => {
+    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+    if (!keys.includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? previewTabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + previewTabs.length) % previewTabs.length;
+    previewTabs[next].focus({ preventScroll: true });
+    selectPreviewTab(previewTabs[next]);
+  });
+});

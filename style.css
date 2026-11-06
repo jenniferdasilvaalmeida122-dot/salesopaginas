@@ -377,3 +377,32 @@ footer>p,footer small{color:#d3c5bb}
  .closing{padding:40px 22px}
  .closing .button{font-size:12px;gap:16px}
 }
+
+/* Demonstração com capturas reais, independente dos dados do aplicativo. */
+.app-showcase{background:#fff}
+.app-preview-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 0 16px;margin:0 auto 16px;max-width:720px;justify-content:center}
+.app-preview-tabs::-webkit-scrollbar{display:none}
+.app-preview-tabs button{flex:0 0 auto;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:40px;min-height:44px;padding:10px 18px;font-size:13px;cursor:pointer;touch-action:manipulation;white-space:nowrap}
+.app-preview-tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.app-preview-tabs button:focus-visible,.app-preview-screen:focus-visible{outline:3px solid #ad8b76;outline-offset:3px}
+.app-preview-panel{max-width:800px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,310px);gap:52px;align-items:center}
+.app-preview-copy h3{font-size:30px;font-weight:400;line-height:1.2;letter-spacing:-1px;margin-bottom:18px}
+.app-preview-copy>p{font-size:15px;color:var(--muted);line-height:1.65}
+.app-preview-step{display:block;font-size:11px;color:var(--accent);letter-spacing:1px;margin-bottom:14px}
+.app-preview-copy .app-preview-caption{font-size:11px;margin-top:20px}
+.app-preview-screen{width:100%;max-height:590px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 12px 36px #38261e0c}
+.app-preview-screen img{display:block;width:100%;height:auto}
+@media(max-width:600px){
+ .app-showcase{padding-top:38px;padding-bottom:42px}
+ .app-preview-tabs{justify-content:flex-start;gap:6px;margin-bottom:12px}
+ .app-preview-tabs button{font-size:12px;padding:9px 14px}
+ .app-preview-panel{grid-template-columns:1fr;gap:20px}
+ .app-preview-copy{max-width:360px;margin:auto}
+ .app-preview-step{font-size:10px;margin-bottom:8px}
+ .app-preview-copy h3{font-size:23px;margin-bottom:10px}
+ .app-preview-copy>p{font-size:14px}
+ .app-preview-copy .app-preview-caption{margin-top:10px;font-size:10px}
+ .app-preview-screen{max-width:300px;max-height:520px;margin:auto;border-radius:18px}
+}
+@media(prefers-reduced-motion:no-preference){.app-preview-screen.is-switching{animation:preview-switch .3s ease-out both}}
+@keyframes preview-switch{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
