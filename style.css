@@ -509,3 +509,8 @@ footer>p,footer small{color:#d3c5bb}
 .method-rail{display:flex;gap:inherit;width:100%;transform:translate3d(0,0,0);will-change:transform}
 .method-pause{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;text-decoration:none}
 @media(prefers-reduced-motion:reduce){.method-rail{will-change:auto}}
+
+/* Fotos enviadas para as técnicas, preservadas inteiras. */
+.method-image-upload{background:transparent}
+.method-image-upload img{object-fit:contain}
+.method-image-upload::after{display:none}
