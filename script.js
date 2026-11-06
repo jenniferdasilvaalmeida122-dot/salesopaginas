@@ -264,14 +264,13 @@ if (heroFan) {
 const methodCarousel = document.querySelector('.method-carousel');
 if (methodCarousel) {
   const slides = [...methodCarousel.querySelectorAll('.method-slide')];
-  const pauseButton = document.querySelector('.method-pause');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const rail = document.createElement('div');
   rail.className = 'method-rail';
   slides.forEach(slide => rail.append(slide));
   methodCarousel.append(rail);
   const speed = 0.032; // 32 pixels por segundo, independente da taxa de atualização.
-  let animation = null, cycle = 0, inView = false, touching = false, keyboardFocused = false, paused = false;
+  let animation = null, cycle = 0, inView = false, touching = false, keyboardFocused = false;
   let resumeAt = 0, resumeTimer = 0;
   function freezeMethods() {
     if (!animation) return;
@@ -286,7 +285,7 @@ if (methodCarousel) {
   }
   function syncMethods() {
     clearTimeout(resumeTimer);
-    const enabled = inView && !document.hidden && !motion.matches && !paused && !touching && !keyboardFocused;
+    const enabled = inView && !document.hidden && !motion.matches && !touching && !keyboardFocused;
     if (!enabled || performance.now() < resumeAt) {
       freezeMethods();
       if (enabled) resumeTimer = setTimeout(syncMethods, Math.max(0, resumeAt - performance.now()) + 20);
@@ -304,7 +303,6 @@ if (methodCarousel) {
   function configureMethods() {
     freezeMethods();
     rail.querySelectorAll('[data-method-copy]').forEach(copy => copy.remove());
-    pauseButton.hidden = motion.matches;
     if (!motion.matches) {
       slides.forEach(slide => {
         const copy = slide.cloneNode(true);
@@ -318,13 +316,6 @@ if (methodCarousel) {
     measureMethods();
     syncMethods();
   }
-  pauseButton.addEventListener('click', () => {
-    paused = !paused;
-    pauseButton.setAttribute('aria-pressed', String(paused));
-    pauseButton.setAttribute('aria-label', paused ? 'Retomar animação do carrossel' : 'Pausar animação do carrossel');
-    pauseButton.querySelector('path').setAttribute('d', paused ? 'M8 5v14l11-7z' : 'M7 5h3v14H7zM14 5h3v14h-3z');
-    syncMethods();
-  });
   methodCarousel.addEventListener('pointerdown', () => { touching = true; keyboardFocused = false; syncMethods(); }, {passive: true});
   function releaseMethods() {
     if (!touching) return;
