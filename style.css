@@ -164,3 +164,70 @@
  @media(hover:hover){.feature-item:hover .feature-symbol{transform:translateY(-3px);background:#e5e9df}}
 }
 @keyframes feature-arrive{from{opacity:.35;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Acabamento de navegação e ritmo, preservando a identidade da página. */
+.button{min-height:48px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.card-pagination button{width:44px;height:44px;touch-action:manipulation}
+summary{min-height:44px;align-items:center;touch-action:manipulation}
+.nav-links a,footer a{display:inline-flex;align-items:center;min-height:40px}
+.cards{scroll-padding-inline:0}
+.cards.is-dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.cards.is-dragging a{pointer-events:none}
+.cards img{-webkit-user-drag:none}
+.card-pagination button::before{transition:background .2s ease,transform .2s ease}
+.card-pagination button[aria-current="true"]::before{transform:scale(1.12)}
+@media(max-width:600px){
+ .hero-copy{padding:24px 20px 18px}
+ .hero-copy h1{font-size:clamp(30px,8.5vw,36px);line-height:1.13;letter-spacing:-1.2px}
+ .hero-copy>.eyebrow{font-size:9px;margin-bottom:14px}
+ .hero-copy>p:not(.eyebrow){font-size:15px;line-height:1.55;margin-top:16px}
+ .hero-visual{height:220px}
+ .hero-action{padding-top:18px}
+ .hero-action .button{min-width:210px}
+ .section{padding-top:34px;padding-bottom:34px}
+ h2{font-size:28px;line-height:1.18;letter-spacing:-1px}
+ .section-title{margin-bottom:20px}
+ .section-title>p:last-child,.split-title>p{font-size:14px;line-height:1.5}
+ .cycle{padding-bottom:0}
+ .cycle h2{font-size:28px;margin-bottom:16px}
+ .cycle-content{gap:16px}
+ .cycle-list li{font-size:14px;line-height:1.55;padding:12px 0 12px 20px}
+ .cycle-list li:before{top:20px;width:6px;height:6px}
+ .cycle blockquote{padding:20px}
+ .cycle blockquote>span{font-size:54px}
+ .cycle blockquote p{font-size:16px;line-height:1.55}
+ .card-pagination{margin-top:4px}
+ .product-features{padding-top:16px;padding-bottom:28px}
+ .product-features h2{font-size:28px}
+ .banner{min-height:340px;padding:32px 22px 20px}
+ .banner h2{font-size:36px;line-height:1.13;margin-bottom:24px}
+ .banner .eyebrow{margin-bottom:16px}
+ .banner-bottom{margin-top:40px;padding-top:16px}
+ .split-title{margin-bottom:20px}
+ .rituals{gap:12px}
+ .rituals article{padding:20px}
+ .rituals article>span{margin-bottom:10px}
+ .rituals h3{font-size:17px}
+ .rituals p{font-size:14px;line-height:1.55;margin-bottom:16px}
+ .faq{padding-top:12px;gap:24px}
+ .faq h2{font-size:28px;margin-bottom:18px}
+ details{padding:10px 0}
+ summary{font-size:14px;line-height:1.4}
+ details p{font-size:14px;line-height:1.6;padding-top:8px}
+ .faq-photo{height:300px}
+ .closing{padding:32px 20px}
+ .closing>p{margin:8px 0 16px}
+ .closing h2{font-size:27px;margin-bottom:22px}
+ footer{padding-top:28px;gap:12px}
+ footer small{margin-top:4px;padding-top:16px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .button{transition:transform .18s ease,background .2s ease,box-shadow .2s ease}
+ .button:active{transform:scale(.97)}
+ .button span{transition:transform .2s ease}
+ .button:hover span{transform:translateX(2px)}
+ .ui-enter{animation:ui-arrive .55s cubic-bezier(.2,.65,.3,1) both}
+ details[open] p{animation:ui-arrive .25s ease-out both}
+}
+@media(prefers-reduced-motion:reduce){.card-pagination button::before{transition:none}}
+@keyframes ui-arrive{from{opacity:.6;transform:translateY(8px)}to{opacity:1;transform:none}}

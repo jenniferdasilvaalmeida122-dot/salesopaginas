@@ -79,3 +79,63 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
   }, { threshold: 0.15 });
   document.querySelectorAll('.feature-item').forEach(item => featureObserver.observe(item));
 }
+
+// Mantém o gesto nativo no celular e permite arrastar os cards com o mouse.
+if (cardTrack) {
+  let drag = null;
+  let suppressClickUntil = 0;
+  cardTrack.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { id: event.pointerId, x: event.clientX, left: cardTrack.scrollLeft, moved: false };
+  });
+  cardTrack.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const delta = event.clientX - drag.x;
+    if (!drag.moved && Math.abs(delta) < 8) return;
+    if (!drag.moved) {
+      drag.moved = true;
+      cardTrack.setPointerCapture(event.pointerId);
+      cardTrack.classList.add('is-dragging');
+    }
+    cardTrack.scrollLeft = drag.left - delta;
+  });
+  function finishCardDrag(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    const moved = drag.moved;
+    drag = null;
+    if (moved) suppressClickUntil = performance.now() + 250;
+    if (cardTrack.hasPointerCapture(event.pointerId)) cardTrack.releasePointerCapture(event.pointerId);
+    cardTrack.classList.remove('is-dragging');
+    if (moved) {
+      const maxLeft = cardTrack.scrollWidth - cardTrack.clientWidth;
+      const positions = [...cardTrack.querySelectorAll('.photo-card')].map(card => Math.min(maxLeft,
+        card.getBoundingClientRect().left - cardTrack.getBoundingClientRect().left + cardTrack.scrollLeft));
+      const nearest = positions.reduce((best, position) => Math.abs(position - cardTrack.scrollLeft) < Math.abs(best - cardTrack.scrollLeft) ? position : best);
+      cardTrack.scrollTo({ left: nearest, behavior: 'instant' });
+    }
+  }
+  cardTrack.addEventListener('pointerup', finishCardDrag);
+  cardTrack.addEventListener('pointercancel', finishCardDrag);
+  cardTrack.addEventListener('lostpointercapture', finishCardDrag);
+  cardTrack.addEventListener('pointerleave', event => {
+    if (drag && !drag.moved) finishCardDrag(event);
+  });
+  cardTrack.addEventListener('dragstart', event => event.preventDefault());
+  cardTrack.addEventListener('click', event => {
+    if (performance.now() >= suppressClickUntil) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+}
+
+// Entradas breves, uma única vez; nenhum conteúdo depende delas para aparecer.
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const pageMotion = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('ui-enter');
+      pageMotion.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.section-title, .cycle-content, .banner, .split-title, .rituals article, .faq-photo, .faq > div:last-child, .closing h2').forEach(element => pageMotion.observe(element));
+}
