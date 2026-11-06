@@ -175,7 +175,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
 
 // Abas de apresentação: apenas capturas, sem conectar aos dados pessoais do app.
 const previewTabs = [...document.querySelectorAll('[data-preview]')];
-let previewTheme = 'dark';
+let previewTheme = 'light';
 const previewScreens = {
   habitos: { title: 'Sua constância, um dia de cada vez.', description: 'Crie seus hábitos, defina uma meta diária e acompanhe o que já fez. Você escolhe entre cartões, últimos cinco dias e calendário mensal.', alt: 'Tela Hábitos do HabitKit com metas diárias, progresso de hoje e histórico dos hábitos' },
   calendario: { title: 'Seu caminho fica registrado.', description: 'Abra um hábito para consultar o calendário, registrar dias anteriores e guardar notas sobre o que ajudou ou dificultou a sua rotina.', alt: 'Tela interna de um hábito com histórico anual, sequência e calendário mensal' },
