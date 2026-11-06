@@ -260,38 +260,84 @@ if (heroFan) {
 }
 
 
+// Faixa lenta e contínua, com deslize manual e pausa acessível.
 const methodCarousel = document.querySelector('.method-carousel');
 if (methodCarousel) {
   const slides = [...methodCarousel.querySelectorAll('.method-slide')];
-  const controls = document.querySelector('.method-controls');
-  const previous = controls.querySelector('[data-method-direction="-1"]');
-  const next = controls.querySelector('[data-method-direction="1"]');
-  const position = controls.querySelector('.method-position');
-  const slidePosition = slide => Math.max(0, Math.min(methodCarousel.scrollWidth - methodCarousel.clientWidth,
-    slide.getBoundingClientRect().left - methodCarousel.getBoundingClientRect().left + methodCarousel.scrollLeft));
-  function currentMethod() {
-    const distances = slides.map(slide => Math.abs(slidePosition(slide) - methodCarousel.scrollLeft));
-    return distances.indexOf(Math.min(...distances));
+  const pauseButton = document.querySelector('.method-pause');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let inView = false, hovering = false, touching = false, focused = false, paused = false;
+  let frame = 0, previousTime = 0, position = 0, cycle = 0, resumeAt = 0;
+  function readyToMove() {
+    return inView && !document.hidden && !motion.matches && !paused && !hovering && !touching && !focused;
   }
-  function updateMethods() {
-    const max = methodCarousel.scrollWidth - methodCarousel.clientWidth;
-    controls.hidden = max < 2;
-    previous.disabled = methodCarousel.scrollLeft < 2;
-    next.disabled = methodCarousel.scrollLeft >= max - 2;
-    position.textContent = `0${currentMethod() + 1} / 04`;
+  function measureCycle() {
+    const copy = methodCarousel.querySelector('[data-method-copy]');
+    cycle = copy ? copy.getBoundingClientRect().left - slides[0].getBoundingClientRect().left : 0;
+    position = methodCarousel.scrollLeft;
   }
-  function moveMethod(direction) {
-    const index = Math.max(0, Math.min(slides.length - 1, currentMethod() + direction));
-    methodCarousel.scrollTo({left: slidePosition(slides[index]), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  function animateMethods(time) {
+    frame = 0;
+    if (!readyToMove()) { previousTime = 0; return; }
+    const delta = previousTime ? Math.min(time - previousTime, 50) : 0;
+    previousTime = time;
+    if (time >= resumeAt && cycle > 0) {
+      position = (position + delta * 0.018) % cycle;
+      methodCarousel.scrollLeft = Math.floor(position);
+    } else position = methodCarousel.scrollLeft;
+    frame = requestAnimationFrame(animateMethods);
   }
-  previous.addEventListener('click', () => moveMethod(-1));
-  next.addEventListener('click', () => moveMethod(1));
-  methodCarousel.addEventListener('scroll', updateMethods, {passive: true});
-  addEventListener('resize', updateMethods);
+  function syncPlayback() {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    previousTime = 0;
+    position = methodCarousel.scrollLeft;
+    if (readyToMove()) frame = requestAnimationFrame(animateMethods);
+  }
+  function configureMethods() {
+    methodCarousel.querySelectorAll('[data-method-copy]').forEach(copy => copy.remove());
+    pauseButton.hidden = motion.matches;
+    if (!motion.matches) {
+      slides.forEach(slide => {
+        const copy = slide.cloneNode(true);
+        copy.dataset.methodCopy = '';
+        copy.setAttribute('aria-hidden', 'true');
+        copy.style.setProperty('--method-offset', getComputedStyle(slide).getPropertyValue('--method-offset'));
+        copy.querySelectorAll('img').forEach(image => image.alt = '');
+        methodCarousel.append(copy);
+      });
+    }
+    measureCycle();
+    syncPlayback();
+  }
+  pauseButton.addEventListener('click', () => {
+    paused = !paused;
+    pauseButton.setAttribute('aria-pressed', String(paused));
+    pauseButton.textContent = paused ? 'Retomar movimento' : 'Pausar movimento';
+    syncPlayback();
+  });
+  methodCarousel.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovering = true; syncPlayback(); } });
+  methodCarousel.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { hovering = false; syncPlayback(); } });
+  methodCarousel.addEventListener('pointerdown', () => { touching = true; syncPlayback(); }, {passive: true});
+  function releaseMethods() { touching = false; resumeAt = performance.now() + 1800; syncPlayback(); }
+  addEventListener('pointerup', releaseMethods, {passive: true});
+  addEventListener('pointercancel', releaseMethods, {passive: true});
+  methodCarousel.addEventListener('wheel', () => { resumeAt = performance.now() + 1800; }, {passive: true});
+  methodCarousel.addEventListener('scroll', () => {
+    if (!readyToMove() || performance.now() < resumeAt) position = methodCarousel.scrollLeft;
+  }, {passive: true});
+  methodCarousel.addEventListener('focusin', () => { focused = true; syncPlayback(); });
+  methodCarousel.addEventListener('focusout', event => { if (!methodCarousel.contains(event.relatedTarget)) { focused = false; syncPlayback(); } });
   methodCarousel.addEventListener('keydown', event => {
     if (event.target !== methodCarousel || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
     event.preventDefault();
-    moveMethod(event.key === 'ArrowRight' ? 1 : -1);
+    methodCarousel.scrollBy({left: (event.key === 'ArrowRight' ? 1 : -1) * (slides[0].offsetWidth + 20), behavior: motion.matches ? 'instant' : 'smooth'});
   });
-  updateMethods();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncPlayback(); }, {threshold: 0.05}).observe(methodCarousel);
+  } else inView = true;
+  addEventListener('resize', () => { measureCycle(); syncPlayback(); });
+  document.addEventListener('visibilitychange', syncPlayback);
+  motion.addEventListener('change', configureMethods);
+  configureMethods();
 }

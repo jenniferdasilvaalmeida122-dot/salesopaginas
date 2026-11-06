@@ -496,3 +496,10 @@ footer>p,footer small{color:#d3c5bb}
  .method-intro>p{font-size:14px;margin-top:22px}
 }
 @media(min-width:601px) and (max-width:900px){.method-slide{flex-basis:56%;min-width:0}}
+
+/* Movimento automático contínuo, sem setas. */
+.method-carousel{scroll-snap-type:none;overflow-anchor:none}
+.method-pause{display:block;margin:6px 0 0 auto;padding:10px 0 10px 12px;min-height:40px;border:0;background:transparent;color:var(--muted);font-size:11px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.method-pause[hidden]{display:none}
+.method-pause:focus-visible{outline:3px solid #ad8b76;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.method-carousel{scroll-snap-type:x proximity}}
