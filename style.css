@@ -406,3 +406,10 @@ footer>p,footer small{color:#d3c5bb}
 }
 @media(prefers-reduced-motion:no-preference){.app-preview-screen.is-switching{animation:preview-switch .3s ease-out both}}
 @keyframes preview-switch{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* Claro e escuro alteram apenas as capturas da demonstração. */
+.app-preview-theme{display:flex;justify-content:center;gap:4px;margin:0 auto 18px;padding:4px;border:1px solid var(--line);border-radius:40px;width:max-content}
+.app-preview-theme button{min-height:40px;padding:8px 18px;font-size:13px;background:transparent;border:0;border-radius:30px;color:var(--muted);cursor:pointer;touch-action:manipulation}
+.app-preview-theme button[aria-pressed="true"]{background:var(--accent);color:white}
+.app-preview-theme button:focus-visible{outline:3px solid #ad8b76;outline-offset:2px}
+.app-preview-screen[data-theme="dark"]{background:#18181b}

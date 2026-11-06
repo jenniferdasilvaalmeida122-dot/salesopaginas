@@ -175,6 +175,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
 
 // Abas de apresentação: apenas capturas, sem conectar aos dados pessoais do app.
 const previewTabs = [...document.querySelectorAll('[data-preview]')];
+let previewTheme = 'dark';
 const previewScreens = {
   habitos: { title: 'Sua constância, um dia de cada vez.', description: 'Crie seus hábitos, defina uma meta diária e acompanhe o que já fez. Você escolhe entre cartões, últimos cinco dias e calendário mensal.', alt: 'Tela Hábitos do HabitKit com metas diárias, progresso de hoje e histórico dos hábitos' },
   calendario: { title: 'Seu caminho fica registrado.', description: 'Abra um hábito para consultar o calendário, registrar dias anteriores e guardar notas sobre o que ajudou ou dificultou a sua rotina.', alt: 'Tela interna de um hábito com histórico anual, sequência e calendário mensal' },
@@ -196,7 +197,8 @@ function selectPreviewTab(tab) {
   document.querySelector('#preview-step').textContent = `0${previewTabs.indexOf(tab) + 1} / 04`;
   const image = document.querySelector('#preview-image');
   image.alt = screen.alt;
-  image.src = `assets/app-preview/${key}.png`;
+  image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png`;
+  image.parentElement.dataset.theme = previewTheme;
   const frame = image.parentElement;
   frame.scrollTop = 0;
   frame.classList.remove('is-switching');
@@ -214,5 +216,16 @@ previewTabs.forEach((tab, index) => {
     const next = event.key === 'Home' ? 0 : event.key === 'End' ? previewTabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + previewTabs.length) % previewTabs.length;
     previewTabs[next].focus({ preventScroll: true });
     selectPreviewTab(previewTabs[next]);
+  });
+});
+
+
+const previewThemeButtons = [...document.querySelectorAll('[data-preview-theme]')];
+previewThemeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    previewTheme = button.dataset.previewTheme;
+    previewThemeButtons.forEach(option => option.setAttribute('aria-pressed', String(option === button)));
+    const selected = previewTabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+    if (selected) selectPreviewTab(selected);
   });
 });
