@@ -197,7 +197,7 @@ function selectPreviewTab(tab) {
   document.querySelector('#preview-step').textContent = `0${previewTabs.indexOf(tab) + 1} / 04`;
   const image = document.querySelector('#preview-image');
   image.alt = screen.alt;
-  image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=fotos-reais-1`;
+  image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${key === 'vision-board' ? 'mural-sem-barra-1' : 'fotos-reais-1'}`;
   image.parentElement.dataset.theme = previewTheme;
   const frame = image.parentElement;
   frame.scrollTop = 0;
