@@ -137,5 +137,37 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
       pageMotion.unobserve(entry.target);
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.section-title, .cycle-content, .banner, .split-title, .rituals article, .faq-photo, .faq > div:last-child, .closing h2').forEach(element => pageMotion.observe(element));
+  document.querySelectorAll('.cycle-content, .rituals article, .faq > div:last-child').forEach(element => pageMotion.observe(element));
+}
+
+
+// Revelação editorial sem alterar palavras, ênfases ou leitura por tecnologia assistiva.
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const editorialObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add(entry.target.matches('h1,h2') ? 'type-arrived' : 'media-arrived');
+      editorialObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('h1,h2').forEach(heading => {
+    const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    let wordIndex = 0;
+    textNodes.forEach(node => {
+      const fragment = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part.trim()) { fragment.append(document.createTextNode(part)); return; }
+        const word = document.createElement('span');
+        word.className = 'type-word';
+        word.textContent = part;
+        word.style.setProperty('--word-delay', `${Math.min(wordIndex++ * 35, 350)}ms`);
+        fragment.append(word);
+      });
+      node.replaceWith(fragment);
+    });
+    editorialObserver.observe(heading);
+  });
+  document.querySelectorAll('.hero-visual,.card-artwork,.faq-photo,.banner').forEach(element => editorialObserver.observe(element));
 }
