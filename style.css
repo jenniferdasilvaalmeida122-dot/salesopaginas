@@ -513,4 +513,4 @@ footer>p,footer small{color:#d3c5bb}
 /* Fotos enviadas para as técnicas, preservadas inteiras. */
 .method-image-upload{background:transparent}
 .method-image-upload img{object-fit:contain}
-.method-image-upload::after{display:none}
+.method-image-upload::after{display:block}
