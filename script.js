@@ -66,3 +66,16 @@ if (offerBanner) {
   setInterval(updateOfferCountdown, 1000);
   document.addEventListener('visibilitychange', updateOfferCountdown);
 }
+
+
+// Entrada única e discreta dos benefícios; o conteúdo funciona sem animação.
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const featureObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      featureObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.feature-item').forEach(item => featureObserver.observe(item));
+}
