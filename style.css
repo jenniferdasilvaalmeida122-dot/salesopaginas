@@ -416,7 +416,7 @@ footer>p,footer small{color:#d3c5bb}
 
 /* Três fotografias em leque no lugar da imagem única do topo. */
 .hero-visual.hero-fan{display:block;position:relative;width:calc(100% - 64px);max-width:660px;height:390px;overflow:visible;border-radius:0;background:transparent;isolation:isolate}
-.fan-card{position:absolute;left:50%;top:4%;width:37%;aspect-ratio:3/4;border-radius:16px;background-image:url('assets/topo-bem-estar.png');background-size:300% 100%;background-repeat:no-repeat;box-shadow:0 8px 20px #38261e0c;transform:translateX(-50%) translateX(var(--fan-x,0%)) rotate(var(--fan-angle,0deg));transform-origin:50% 85%}
+.fan-card{position:absolute;left:50%;top:4%;width:37%;aspect-ratio:3/4;border-radius:16px;background-image:url('assets/topo-bem-estar.png');background-size:300% 100%;background-repeat:no-repeat;box-shadow:0 8px 20px #38261e0c;transform:translateX(-50%) translateX(calc(var(--fan-x,0%) * var(--fan-spread,1))) rotate(calc(var(--fan-angle,0deg) * var(--fan-rotation,1)));transform-origin:50% 85%}
 .fan-card-left{--fan-x:-77%;--fan-angle:-10deg;top:10%;background-position:0% center;z-index:1}
 .fan-card-center{background-position:50% center;z-index:2}
 .fan-card-right{--fan-x:77%;--fan-angle:10deg;top:10%;background-position:100% center;z-index:1}
@@ -432,4 +432,6 @@ footer>p,footer small{color:#d3c5bb}
  .hero-fan.media-arrived .fan-card-center{animation-delay:.06s}
  .hero-fan.media-arrived .fan-card-right{animation-delay:.12s}
 }
-@keyframes fan-open{from{opacity:0;transform:translateX(-50%) translateY(12px) rotate(0deg)}to{opacity:1;transform:translateX(-50%) translateX(var(--fan-x,0%)) rotate(var(--fan-angle,0deg))}}
+@keyframes fan-open{from{opacity:0;transform:translateX(-50%) translateY(12px) rotate(0deg)}to{opacity:1;transform:translateX(-50%) translateX(calc(var(--fan-x,0%) * var(--fan-spread,1))) rotate(calc(var(--fan-angle,0deg) * var(--fan-rotation,1)))}}
+
+@media(prefers-reduced-motion:no-preference){.fan-card{transition:transform .16s ease-out}}

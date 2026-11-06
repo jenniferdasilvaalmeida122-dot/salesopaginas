@@ -229,3 +229,32 @@ previewThemeButtons.forEach(button => {
     if (selected) selectPreviewTab(selected);
   });
 });
+
+
+// O leque acompanha a rolagem: fecha levemente ao descer e reabre ao subir.
+const heroFan = document.querySelector('.hero-fan');
+if (heroFan) {
+  const fanMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  let fanFrame = 0;
+  function updateFanScroll() {
+    fanFrame = 0;
+    if (fanMotionPreference.matches) {
+      heroFan.style.removeProperty('--fan-spread');
+      heroFan.style.removeProperty('--fan-rotation');
+      return;
+    }
+    const top = heroFan.getBoundingClientRect().top + scrollY;
+    const travel = Math.max(200, top + heroFan.offsetHeight * 0.5);
+    const progress = Math.min(1, Math.max(0, scrollY / travel));
+    heroFan.style.setProperty('--fan-spread', (1 - progress * 0.22).toFixed(4));
+    heroFan.style.setProperty('--fan-rotation', (1 - progress * 0.45).toFixed(4));
+  }
+  function requestFanScroll() {
+    if (!fanFrame) fanFrame = requestAnimationFrame(updateFanScroll);
+  }
+  addEventListener('scroll', requestFanScroll, { passive: true });
+  addEventListener('resize', requestFanScroll);
+  fanMotionPreference.addEventListener('change', requestFanScroll);
+  addEventListener('pageshow', requestFanScroll);
+  updateFanScroll();
+}
