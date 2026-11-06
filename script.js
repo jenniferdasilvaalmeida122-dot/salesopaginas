@@ -258,3 +258,40 @@ if (heroFan) {
   addEventListener('pageshow', requestFanScroll);
   updateFanScroll();
 }
+
+
+const methodCarousel = document.querySelector('.method-carousel');
+if (methodCarousel) {
+  const slides = [...methodCarousel.querySelectorAll('.method-slide')];
+  const controls = document.querySelector('.method-controls');
+  const previous = controls.querySelector('[data-method-direction="-1"]');
+  const next = controls.querySelector('[data-method-direction="1"]');
+  const position = controls.querySelector('.method-position');
+  const slidePosition = slide => Math.max(0, Math.min(methodCarousel.scrollWidth - methodCarousel.clientWidth,
+    slide.getBoundingClientRect().left - methodCarousel.getBoundingClientRect().left + methodCarousel.scrollLeft));
+  function currentMethod() {
+    const distances = slides.map(slide => Math.abs(slidePosition(slide) - methodCarousel.scrollLeft));
+    return distances.indexOf(Math.min(...distances));
+  }
+  function updateMethods() {
+    const max = methodCarousel.scrollWidth - methodCarousel.clientWidth;
+    controls.hidden = max < 2;
+    previous.disabled = methodCarousel.scrollLeft < 2;
+    next.disabled = methodCarousel.scrollLeft >= max - 2;
+    position.textContent = `0${currentMethod() + 1} / 04`;
+  }
+  function moveMethod(direction) {
+    const index = Math.max(0, Math.min(slides.length - 1, currentMethod() + direction));
+    methodCarousel.scrollTo({left: slidePosition(slides[index]), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  }
+  previous.addEventListener('click', () => moveMethod(-1));
+  next.addEventListener('click', () => moveMethod(1));
+  methodCarousel.addEventListener('scroll', updateMethods, {passive: true});
+  addEventListener('resize', updateMethods);
+  methodCarousel.addEventListener('keydown', event => {
+    if (event.target !== methodCarousel || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    moveMethod(event.key === 'ArrowRight' ? 1 : -1);
+  });
+  updateMethods();
+}
