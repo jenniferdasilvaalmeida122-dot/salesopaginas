@@ -199,6 +199,18 @@ function selectPreviewTab(tab) {
   image.alt = screen.alt;
   image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${key === 'vision-board' ? 'mural-sem-barra-1' : 'fotos-reais-1'}`;
   image.parentElement.dataset.theme = previewTheme;
+  const stage = document.querySelector('.app-preview-stage');
+  if (stage) {
+    stage.dataset.theme = previewTheme;
+    const keys = Object.keys(previewScreens);
+    const index = keys.indexOf(key);
+    const neighbors = [keys[(index + keys.length - 1) % keys.length], keys[(index + 1) % keys.length]];
+    ['#preview-side-left', '#preview-side-right'].forEach((selector, side) => {
+      const neighbor = neighbors[side];
+      const version = neighbor === 'vision-board' ? 'mural-sem-barra-1' : 'fotos-reais-1';
+      document.querySelector(selector).src = `assets/app-preview/${neighbor}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${version}`;
+    });
+  }
   const frame = image.parentElement;
   frame.scrollTop = 0;
   frame.classList.remove('is-switching');
