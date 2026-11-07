@@ -515,23 +515,44 @@ footer>p,footer small{color:#d3c5bb}
 .method-image-upload img{object-fit:contain}
 .method-image-upload::after{display:block}
 
-/* Três celulares com telas reais, com o principal à frente. */
+/* Aparelhos com carcaça metálica, borda de tela, câmera e botões físicos. */
 .app-preview-panel{max-width:1000px;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:44px}
 .app-preview-stage{position:relative;isolation:isolate;width:100%;max-width:500px;aspect-ratio:1/1.25;margin:auto}
-.app-preview-stage .app-preview-screen{position:absolute;z-index:2;left:23%;top:10px;width:54%;max-width:none;max-height:none;aspect-ratio:390/844;border:5px solid #fff;border-top-width:23px;border-radius:28px;margin:0;box-shadow:0 16px 26px #38261e24;scrollbar-width:none;overflow-y:auto;background:#fff}
+.preview-phone-main,.preview-phone-side{position:absolute;aspect-ratio:390/844;border-radius:32px;border:1px solid #777875;background:linear-gradient(120deg,#d3d3cf 0%,#676965 12%,#222320 32%,#888984 70%,#d0d1cc 100%);box-shadow:0 1px 0 #fff inset,0 18px 28px #211c1a38,2px 0 2px #fff8 inset,-2px 0 2px #1118 inset}
+.preview-phone-main{z-index:2;left:23%;top:10px;width:54%}
+.preview-phone-side{z-index:1;top:38px;width:44%;pointer-events:none}
+.preview-phone-main::after,.preview-phone-side::after{content:'';position:absolute;inset:3px;border:1px solid #393b37;border-radius:29px;pointer-events:none;z-index:3}
+.preview-phone-main::before,.preview-phone-side::before{content:'';position:absolute;z-index:5;top:12px;left:calc(50% - 23px);width:46px;height:13px;border-radius:20px;background:radial-gradient(circle at 84% 50%,#1d2940 0 2px,#08090c 2.8px,transparent 3px),#070708;box-shadow:0 0 0 1px #0006;pointer-events:none}
+.app-preview-stage .app-preview-screen,.phone-display{position:absolute;inset:6px;width:auto;max-width:none;max-height:none;aspect-ratio:auto;border:2px solid #10110f;border-radius:26px;margin:0;background:white;overflow:hidden;box-shadow:none;scrollbar-width:none}
+.app-preview-stage .app-preview-screen{overflow-y:auto;overscroll-behavior:contain}
 .app-preview-stage .app-preview-screen::-webkit-scrollbar{display:none}
-.app-preview-stage .app-preview-screen img{width:100%;height:auto;border-radius:0}
-.preview-phone-side{position:absolute;z-index:1;top:38px;width:44%;aspect-ratio:390/844;border:4px solid #fff;border-top-width:21px;border-radius:25px;overflow:hidden;background:#fff;box-shadow:0 12px 22px #38261e1c;pointer-events:none}
-.preview-phone-side img{display:block;width:100%;height:auto}
+.app-preview-stage img{display:block;width:100%;height:auto;border-radius:0}
+.phone-status{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;height:24px;padding:0 10px;background:#fff;color:#171819;font-size:7px;font-weight:600;line-height:1;pointer-events:none}
+.phone-status-icons svg{display:block;width:30px;height:11px}
+.phone-buttons{position:absolute;inset:0;pointer-events:none}
+.phone-buttons::before,.phone-buttons::after{content:'';position:absolute;width:3px;border:1px solid #656762;border-radius:3px;background:linear-gradient(90deg,#d3d3ce,#73756f);z-index:-1}
+.phone-buttons::before{left:-3px;top:24%;height:27px;box-shadow:0 -20px 0 -1px #93958d,0 33px 0 #888b81}
+.phone-buttons::after{right:-3px;top:30%;height:39px}
+.phone-home-indicator{position:absolute;bottom:12px;left:34%;width:32%;height:3px;border-radius:10px;background:#171819;z-index:4;pointer-events:none}
 .preview-phone-left{left:6%;transform:rotate(-8deg);transform-origin:80% 70%}
 .preview-phone-right{right:6%;transform:rotate(8deg);transform-origin:20% 70%}
-.preview-phone-side::before{content:'';position:absolute;z-index:1;top:5px;left:calc(50% - 20px);width:40px;height:9px;border-radius:20px;background:#eeebe5}
-.preview-phone-notch{position:absolute;z-index:3;top:16px;left:calc(50% - 22px);width:44px;height:9px;border-radius:20px;background:#eeebe5;pointer-events:none}
-.app-preview-stage[data-theme="dark"] .preview-phone-side{background:#18181b}
+.preview-phone-side::before{top:11px;left:calc(50% - 19px);width:38px;height:11px}
+.preview-phone-side .phone-status{height:21px;font-size:6px;padding:0 8px}
+.preview-phone-side .phone-status-icons svg{width:24px;height:9px}
+.app-preview-stage[data-theme="dark"] .phone-display,.app-preview-stage[data-theme="dark"] .app-preview-screen,.app-preview-stage[data-theme="dark"] .phone-status{background:#18181b;color:#f7f7f9}
+.app-preview-stage[data-theme="dark"] .phone-home-indicator{background:#f7f7f9}
 @media(max-width:600px){
  .app-preview-panel{grid-template-columns:1fr;gap:20px}
  .app-preview-stage{max-width:390px;aspect-ratio:1/1.3}
- .app-preview-stage .app-preview-screen{border-width:4px;border-top-width:21px;border-radius:23px}
- .preview-phone-side{border-width:3px;border-top-width:18px;border-radius:20px;top:32px}
- .preview-phone-notch{width:36px;height:8px;left:calc(50% - 18px);top:16px}
+ .preview-phone-main,.preview-phone-side{border-radius:25px}
+ .preview-phone-main::after,.preview-phone-side::after{inset:2px;border-radius:23px}
+ .app-preview-stage .app-preview-screen,.phone-display{inset:5px;border-width:2px;border-radius:20px}
+ .preview-phone-side{top:32px}
+ .preview-phone-main::before{top:10px;width:38px;height:11px;left:calc(50% - 19px)}
+ .preview-phone-side::before{top:9px;width:30px;height:9px;left:calc(50% - 15px)}
+ .phone-status{height:21px;font-size:6px;padding:0 9px}
+ .phone-status-icons svg{width:25px;height:9px}
+ .preview-phone-side .phone-status{height:18px;font-size:5px;padding:0 7px}
+ .preview-phone-side .phone-status-icons svg{width:20px;height:8px}
+ .phone-home-indicator{height:2px;bottom:10px}
 }
