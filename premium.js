@@ -41,7 +41,7 @@
   }
 })();
 
-// Depoimentos em movimento contínuo, com deslize manual e movimento reduzido.
+// Depoimentos exclusivamente automáticos, sem arrastar ou controles de avanço.
 const testimonialCarousel = document.querySelector('.testimonials-track');
 if (testimonialCarousel) {
   const slides = [...testimonialCarousel.querySelectorAll('.testimonial-screenshot')];
@@ -50,114 +50,40 @@ if (testimonialCarousel) {
   rail.className = 'testimonial-rail';
   slides.forEach(slide => rail.append(slide));
   testimonialCarousel.append(rail);
-  const speed = 0.028; // 32 pixels por segundo, independente da taxa de atualização.
-  let animation = null, cycle = 0, inView = false, touching = false, keyboardFocused = false;
-  let resumeAt = 0, resumeTimer = 0;
-  function freezeMethods() {
+  let animation = null;
+  let inView = !('IntersectionObserver' in window);
+  function syncTestimonials() {
     if (!animation) return;
-    const position = cycle ? (Number(animation.currentTime || 0) * speed) % cycle : 0;
-    animation.cancel();
+    if (inView && !document.hidden) animation.play();
+    else animation.pause();
+  }
+  function configureTestimonials() {
+    const progress = animation ? Number(animation.effect.getComputedTiming().progress || 0) : 0;
+    if (animation) animation.cancel();
     animation = null;
-    testimonialCarousel.scrollLeft = position;
-  }
-  function measureMethods() {
-    const copy = rail.querySelector('[data-testimonial-copy]');
-    cycle = copy ? copy.getBoundingClientRect().left - slides[0].getBoundingClientRect().left : 0;
-  }
-  function syncMethods() {
-    clearTimeout(resumeTimer);
-    const enabled = inView && !document.hidden && !motion.matches && !touching && !keyboardFocused;
-    if (!enabled || performance.now() < resumeAt) {
-      freezeMethods();
-      if (enabled) resumeTimer = setTimeout(syncMethods, Math.max(0, resumeAt - performance.now()) + 20);
-      return;
-    }
-    if (animation || cycle <= 0) return;
-    const position = testimonialCarousel.scrollLeft % cycle;
-    testimonialCarousel.scrollLeft = 0;
-    animation = rail.animate([
-      {transform: 'translate3d(0,0,0)'},
-      {transform: `translate3d(-${cycle}px,0,0)`}
-    ], {duration: cycle / speed, iterations: Infinity, easing: 'linear'});
-    animation.currentTime = position / speed;
-  }
-  function configureMethods() {
-    freezeMethods();
     rail.querySelectorAll('[data-testimonial-copy]').forEach(copy => copy.remove());
-    if (!motion.matches) {
-      slides.forEach(slide => {
-        const copy = slide.cloneNode(true);
-        copy.dataset.testimonialCopy = '';
-        copy.setAttribute('aria-hidden', 'true');
-        copy.style.setProperty('--method-offset', getComputedStyle(slide).getPropertyValue('--method-offset'));
-        copy.querySelectorAll('img').forEach(image => image.alt = '');
-        rail.append(copy);
-      });
-    }
-    measureMethods();
-    syncMethods();
+    if (motion.matches) return;
+    slides.forEach(slide => {
+      const copy = slide.cloneNode(true);
+      copy.dataset.testimonialCopy = '';
+      copy.setAttribute('aria-hidden', 'true');
+      copy.querySelectorAll('img').forEach(img => img.alt = '');
+      rail.append(copy);
+    });
+    const cycle = rail.querySelector('[data-testimonial-copy]').offsetLeft - slides[0].offsetLeft;
+    if (cycle <= 0) return;
+    const duration = cycle / 0.028;
+    animation = rail.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(-${cycle}px,0,0)`}], {duration,iterations:Infinity,easing:'linear'});
+    animation.currentTime = progress * duration;
+    syncTestimonials();
   }
-  let drag = null;
-  testimonialCarousel.addEventListener('pointerdown', event => {
-    touching = true;
-    keyboardFocused = false;
-    syncMethods();
-    if (event.pointerType === 'mouse' && event.button === 0) {
-      drag = {id: event.pointerId, x: event.clientX, left: testimonialCarousel.scrollLeft};
-      testimonialCarousel.setPointerCapture(event.pointerId);
-      testimonialCarousel.classList.add('is-dragging');
-      event.preventDefault();
-    }
-  });
-  testimonialCarousel.addEventListener('pointermove', event => {
-    if (!drag || event.pointerId !== drag.id) return;
-    testimonialCarousel.scrollLeft = drag.left + drag.x - event.clientX;
-  }, {passive: true});
   testimonialCarousel.addEventListener('dragstart', event => event.preventDefault());
-  function releaseMethods() {
-    if (drag) {
-      if (testimonialCarousel.hasPointerCapture(drag.id)) testimonialCarousel.releasePointerCapture(drag.id);
-      drag = null;
-      testimonialCarousel.classList.remove('is-dragging');
-    }
-    if (!touching) return;
-    touching = false;
-    resumeAt = performance.now() + 700;
-    syncMethods();
-  }
-  addEventListener('pointerup', releaseMethods, {passive: true});
-  addEventListener('pointercancel', releaseMethods, {passive: true});
-  testimonialCarousel.addEventListener('wheel', event => {
-    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) && !event.shiftKey) return;
-    resumeAt = performance.now() + 700;
-    syncMethods();
-  }, {passive: true});
-  testimonialCarousel.addEventListener('scroll', () => {
-    if (animation || motion.matches) return;
-    resumeAt = performance.now() + 700;
-    syncMethods();
-  }, {passive: true});
-  testimonialCarousel.addEventListener('focusin', () => {
-    keyboardFocused = testimonialCarousel.matches(':focus-visible');
-    syncMethods();
-  });
-  testimonialCarousel.addEventListener('focusout', event => {
-    if (!testimonialCarousel.contains(event.relatedTarget)) { keyboardFocused = false; syncMethods(); }
-  });
-  testimonialCarousel.addEventListener('keydown', event => {
-    if (event.target !== testimonialCarousel || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
-    event.preventDefault();
-    keyboardFocused = true;
-    syncMethods();
-    testimonialCarousel.scrollBy({left: (event.key === 'ArrowRight' ? 1 : -1) * (slides[0].offsetWidth + 20), behavior: motion.matches ? 'instant' : 'smooth'});
-  });
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncMethods(); }, {threshold: 0.05}).observe(testimonialCarousel);
-  } else inView = true;
-  addEventListener('resize', () => { freezeMethods(); measureMethods(); syncMethods(); });
-  document.addEventListener('visibilitychange', syncMethods);
-  motion.addEventListener('change', configureMethods);
-  configureMethods();
+  if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
+    inView = entries[0].isIntersecting;
+    syncTestimonials();
+  }, {threshold:0.05}).observe(testimonialCarousel);
+  addEventListener('resize', configureTestimonials);
+  document.addEventListener('visibilitychange', syncTestimonials);
+  motion.addEventListener('change', configureTestimonials);
+  configureTestimonials();
 }
-
-
