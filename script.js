@@ -369,3 +369,40 @@ if (methodCarousel) {
   motion.addEventListener('change', configureMethods);
   configureMethods();
 }
+
+
+// Apenas a faixa da oferta acompanha a rolagem; a logo permanece no topo original.
+if (offerBanner) {
+  const offerSlot = document.createElement('div');
+  offerSlot.className = 'offer-banner-slot';
+  offerBanner.before(offerSlot);
+  offerSlot.append(offerBanner);
+  let pinned = false;
+  let scheduled = false;
+  function updateOfferPosition() {
+    scheduled = false;
+    const shouldPin = offerSlot.getBoundingClientRect().top <= 0;
+    if (shouldPin !== pinned) {
+      if (shouldPin) {
+        offerSlot.style.height = `${offerSlot.getBoundingClientRect().height}px`;
+        document.body.append(offerBanner);
+        offerBanner.classList.add('offer-banner-pinned');
+      } else {
+        offerBanner.classList.remove('offer-banner-pinned');
+        offerSlot.append(offerBanner);
+        offerSlot.style.height = '';
+      }
+      pinned = shouldPin;
+    }
+    document.documentElement.style.scrollPaddingTop = `${offerBanner.getBoundingClientRect().height + 16}px`;
+  }
+  function scheduleOfferPosition() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(updateOfferPosition);
+  }
+  addEventListener('scroll', scheduleOfferPosition, { passive: true });
+  addEventListener('resize', scheduleOfferPosition);
+  new ResizeObserver(scheduleOfferPosition).observe(offerBanner);
+  updateOfferPosition();
+}
