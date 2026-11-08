@@ -97,8 +97,29 @@ if (testimonialCarousel) {
     measureMethods();
     syncMethods();
   }
-  testimonialCarousel.addEventListener('pointerdown', () => { touching = true; keyboardFocused = false; syncMethods(); }, {passive: true});
+  let drag = null;
+  testimonialCarousel.addEventListener('pointerdown', event => {
+    touching = true;
+    keyboardFocused = false;
+    syncMethods();
+    if (event.pointerType === 'mouse' && event.button === 0) {
+      drag = {id: event.pointerId, x: event.clientX, left: testimonialCarousel.scrollLeft};
+      testimonialCarousel.setPointerCapture(event.pointerId);
+      testimonialCarousel.classList.add('is-dragging');
+      event.preventDefault();
+    }
+  });
+  testimonialCarousel.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    testimonialCarousel.scrollLeft = drag.left + drag.x - event.clientX;
+  }, {passive: true});
+  testimonialCarousel.addEventListener('dragstart', event => event.preventDefault());
   function releaseMethods() {
+    if (drag) {
+      if (testimonialCarousel.hasPointerCapture(drag.id)) testimonialCarousel.releasePointerCapture(drag.id);
+      drag = null;
+      testimonialCarousel.classList.remove('is-dragging');
+    }
     if (!touching) return;
     touching = false;
     resumeAt = performance.now() + 700;

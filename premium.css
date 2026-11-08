@@ -154,3 +154,7 @@ footer{padding-top:38px}
 .testimonial-rail{display:flex;gap:16px;align-items:flex-start;width:100%;will-change:transform}
 @media(max-width:900px){.testimonial-rail{gap:14px}}
 @media(prefers-reduced-motion:reduce){.testimonial-rail{will-change:auto}.testimonials-track{scroll-snap-type:x proximity}}
+
+.testimonials-track{cursor:grab;touch-action:pan-x pan-y pinch-zoom}
+.testimonials-track.is-dragging{cursor:grabbing;user-select:none}
+.testimonial-screenshot img{-webkit-user-drag:none;user-select:none}
