@@ -656,8 +656,8 @@ footer>p,footer small{color:#d3c5bb}
 @media(max-width:360px){.bonus-paper-title{font-size:20px}.bonus-art-vision .bonus-paper-title{font-size:20px}.affirmation-front span{font-size:23px}.affirmation-back{font-size:20px}.bonus-check{font-size:8px;padding:5px 0}}
 
 /* Vermelho vinho escuro no banner e nos botões de chamada. */
-.hero .nav{background:#651d32}
-.button,.hero-action .button,.closing .button{background:#651d32;color:#fff}
-.button:hover,.hero-action .button:hover,.closing .button:hover{background:#4c1425}
-.button span,.hero-action .button span,.closing .button span{background:#fff;color:#651d32}
-.banner{background-image:linear-gradient(90deg,#3f1023d9,#651d328c),url('https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=2000&q=85');background-color:#651d32}
+.hero .nav{background:#a92b2b}
+.button,.hero-action .button,.closing .button{background:#a92b2b;color:#fff}
+.button:hover,.hero-action .button:hover,.closing .button:hover{background:#8e2020}
+.button span,.hero-action .button span,.closing .button span{background:#fff;color:#a92b2b}
+.banner{background-image:linear-gradient(90deg,#761c1cd9,#a92b2b8c),url('https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=2000&q=85');background-color:#a92b2b}
