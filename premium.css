@@ -142,5 +142,5 @@ footer{padding-top:38px}
 
 /* Dois enquadramentos da foto enviada, sem alterar o arquivo original. */
 .buyer-avatar.buyer-avatar-group{background-image:url('assets/compradoras-grupo.png');background-size:230.36% 499.29%;background-repeat:no-repeat;background-position-y:49%}
-.buyer-avatar-group-left{background-position-x:2%}
-.buyer-avatar-group-right{background-position-x:83%}
+.buyer-avatar.buyer-avatar-group-left{background-position-x:2%}
+.buyer-avatar.buyer-avatar-group-right{background-position-x:83%}
