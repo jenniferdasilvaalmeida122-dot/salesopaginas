@@ -750,28 +750,22 @@ footer>p,footer small{color:#d3c5bb}
 .testimonials-cta{margin-top:26px}
 @media(max-width:600px){.testimonials-section{padding:42px 16px}.testimonials-section .section-title{margin-bottom:20px}.testimonials-count{padding:13px 18px;font-size:14px}.testimonials-preview-note{font-size:11px;max-width:270px;margin-bottom:20px}.testimonials-track{gap:14px;margin-right:-16px;padding-right:16px}.testimonial-placeholder{flex-basis:84%;min-width:0;min-height:350px}.testimonials-cta{font-size:12px;margin-top:20px}}
 
-/* Garantia e acesso, após o quadro da oferta. */
-.purchase-guarantee,.purchase-access{padding:64px 24px;color:#fff;border-radius:40px 40px 0 0}
-.purchase-guarantee{background:#287346}
-.purchase-info-inner{max-width:760px;margin:0 auto}
-.purchase-guarantee .purchase-info-inner{text-align:center}
-.guarantee-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid #ffffff50;border-radius:50px;background:#ffffff14;padding:10px 20px;margin-bottom:26px;font-size:12px;font-weight:700;letter-spacing:1.5px}
-.guarantee-badge>span{font-size:22px;line-height:1}
-.purchase-guarantee h2,.purchase-access h2{font-size:clamp(30px,3.8vw,46px);line-height:1.2;color:#fff}
-.purchase-info-intro{margin:22px auto 0;max-width:650px;color:#ffffffc9;font-size:16px;line-height:1.75}
-.guarantee-points{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:12px;text-align:left}
-.guarantee-points li{display:flex;gap:18px;align-items:center;padding:20px 24px;border-radius:16px;background:#ffffff12}
-.guarantee-points li>span{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:12px;background:#ffffff24;font-size:24px}
-.guarantee-points h3,.access-steps h3{font-size:18px;letter-spacing:-.4px;margin-bottom:5px}
-.guarantee-points p{font-size:14px;color:#ffffffba;line-height:1.5}
-.purchase-access{background:#543c30;border-radius:0;padding-top:58px}
-.purchase-access h2,.purchase-access>.purchase-info-inner>.purchase-info-intro{text-align:center}
-.access-draft-note{margin:20px auto 0;padding:12px 16px;border:1px solid #ffffff26;border-radius:12px;font-size:12px;color:#e5d2bd;line-height:1.6;max-width:620px;text-align:center}
-.access-steps{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:0}
-.access-steps li{display:flex;gap:24px;position:relative;padding-bottom:32px}
-.access-steps li:last-child{padding-bottom:0}
-.access-steps li:not(:last-child):before{content:'';position:absolute;left:25px;top:54px;bottom:0;width:1px;background:#b98c5c80}
-.access-step-icon{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border:1px solid #df9a7a;border-radius:15px;color:#f1b294;font-size:18px;font-weight:600}
-.access-step-label{font-size:10px;letter-spacing:2px;font-weight:700;color:#f1b294;margin:0 0 7px}
-.access-steps div>p:last-child{font-size:15px;color:#ffffffba;line-height:1.65;max-width:530px}
-@media(max-width:600px){.purchase-guarantee,.purchase-access{padding:42px 20px}.purchase-guarantee{border-radius:28px 28px 0 0}.guarantee-badge{font-size:10px;padding:9px 16px;letter-spacing:1.2px;margin-bottom:22px}.purchase-info-intro{font-size:14px;margin-top:18px}.guarantee-points{margin-top:26px;gap:10px}.guarantee-points li{padding:17px 15px;gap:13px}.guarantee-points h3,.access-steps h3{font-size:16px}.guarantee-points p{font-size:12px}.access-steps{margin-top:28px}.access-steps li{gap:18px;padding-bottom:28px}.access-steps div>p:last-child{font-size:13px}.access-draft-note{font-size:11px}}
+/* Garantia e acesso seguem a mesma linguagem editorial da oferta. */
+.purchase-guarantee,.purchase-access{padding:0 24px 42px;background:var(--paper);color:var(--ink)}
+.purchase-info-inner{max-width:792px;margin:0 auto}
+.guarantee-panel{display:flex;align-items:center;gap:26px;padding:28px 32px;background:#eee5db;border:1px solid #dfcdbd;border-radius:22px}
+.guarantee-seal{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 84px;height:100px;border:1px solid #b99b82;border-radius:42px 42px 34px 34px;color:#543c30;font:42px Georgia,serif}
+.guarantee-seal small{font:600 9px 'DM Sans',sans-serif;letter-spacing:2px;margin-top:3px}
+.guarantee-panel .eyebrow{color:#826752;font-size:9px;letter-spacing:1.5px;margin-bottom:9px}
+.guarantee-panel h2,.purchase-access h2{font-size:clamp(25px,3vw,34px);color:#543c30;letter-spacing:-1px;line-height:1.2}
+.guarantee-panel div>p:last-child{font-size:14px;line-height:1.7;color:#77695e;margin-top:12px;max-width:540px}
+.purchase-access{padding-bottom:54px}
+.purchase-access .purchase-info-inner{padding-top:12px}
+.purchase-access .section-title{margin-bottom:26px}
+.purchase-access .eyebrow{font-size:9px;color:#826752;margin-bottom:10px}
+.access-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.access-steps li{border-top:1px solid #ddcdbc;padding-top:18px}
+.access-step-icon{display:inline-block;font:italic 24px Georgia,serif;color:#a07d62;margin-bottom:14px}
+.access-steps h3{font-size:15px;letter-spacing:-.3px;margin-bottom:8px}
+.access-steps p{font-size:13px;line-height:1.7;color:#77695e}
+@media(max-width:600px){.purchase-guarantee,.purchase-access{padding-left:16px;padding-right:16px;padding-bottom:32px}.guarantee-panel{gap:17px;padding:23px 20px;border-radius:20px;align-items:flex-start}.guarantee-seal{flex-basis:54px;height:70px;font-size:30px}.guarantee-seal small{font-size:7px}.guarantee-panel .eyebrow{font-size:8px;line-height:1.5;letter-spacing:1px}.guarantee-panel h2{font-size:25px}.guarantee-panel div>p:last-child{font-size:12px;margin-top:10px}.purchase-access .section-title{margin-bottom:23px}.access-steps{grid-template-columns:1fr;gap:0}.access-steps li{display:flex;gap:19px;padding:17px 0}.access-step-icon{flex:0 0 30px;margin:0;font-size:23px}.access-steps h3{font-size:14px;margin-bottom:5px}.access-steps p{font-size:12px}.purchase-access{padding-bottom:34px}}
