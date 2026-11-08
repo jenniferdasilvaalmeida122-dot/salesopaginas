@@ -177,10 +177,10 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
 const previewTabs = [...document.querySelectorAll('[data-preview]')];
 let previewTheme = 'light';
 const previewScreens = {
-  habitos: { title: 'Sua constância, um dia de cada vez.', description: 'Crie seus hábitos, defina uma meta diária e acompanhe o que já fez. Você escolhe entre cartões, últimos cinco dias e calendário mensal.', alt: 'Tela Hábitos do HabitKit com metas diárias, progresso de hoje e histórico dos hábitos' },
+  habitos: { title: 'Sua constância, um dia de cada vez.', description: 'Crie seus hábitos, defina uma meta diária e acompanhe o que já fez. Você escolhe entre cartões, últimos cinco dias e calendário mensal.', alt: 'Tela Hábitos do Vision Planner com metas diárias, progresso de hoje e histórico dos hábitos' },
   calendario: { title: 'Seu caminho fica registrado.', description: 'Abra um hábito para consultar o calendário, registrar dias anteriores e guardar notas sobre o que ajudou ou dificultou a sua rotina.', alt: 'Tela interna de um hábito com histórico anual, sequência e calendário mensal' },
-  estatisticas: { title: 'Enxergue o seu progresso.', description: 'Veja suas conclusões, a constância e a evolução dos hábitos ao longo do tempo. Pequenos passos que você consegue acompanhar.', alt: 'Tela de Estatísticas do HabitKit com o resumo e a evolução dos hábitos' },
-  'vision-board': { title: 'Dê forma à vida que você deseja.', description: 'Reúna imagens, frases e referências no seu mural. Organize por categorias e escolha suas fotos principais para aparecerem na tela inicial.', alt: 'Tela Vision Board do HabitKit com mural pessoal, imagens favoritas e categorias' }
+  estatisticas: { title: 'Enxergue o seu progresso.', description: 'Veja suas conclusões, a constância e a evolução dos hábitos ao longo do tempo. Pequenos passos que você consegue acompanhar.', alt: 'Tela de Estatísticas do Vision Planner com o resumo e a evolução dos hábitos' },
+  'vision-board': { title: 'Dê forma à vida que você deseja.', description: 'Reúna imagens, frases e referências no seu mural. Organize por categorias e escolha suas fotos principais para aparecerem na tela inicial.', alt: 'Tela Vision Board do Vision Planner com mural pessoal, imagens favoritas e categorias' }
 };
 function selectPreviewTab(tab) {
   const key = tab.dataset.preview;
