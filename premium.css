@@ -161,3 +161,5 @@ footer{padding-top:38px}
 
 .testimonials-track{overflow:hidden;cursor:default;touch-action:pan-y pinch-zoom;scroll-snap-type:none}
 @media(prefers-reduced-motion:reduce){.testimonial-rail{flex-wrap:wrap}.testimonial-rail .testimonial-screenshot{flex-basis:100%}}
+
+.hero-fan .fan-card-right{background-color:#fff}
