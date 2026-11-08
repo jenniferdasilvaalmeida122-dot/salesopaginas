@@ -33,9 +33,11 @@ jobs:
           test -s index.html
           test -s style.css
           test -s script.js
+          test -s premium.css
+          test -s premium.js
           test -s assets/logo.png
           mkdir -p "$RUNNER_TEMP/site"
-          cp index.html style.css script.js "$RUNNER_TEMP/site/"
+          cp index.html style.css script.js premium.css premium.js "$RUNNER_TEMP/site/"
           cp -R assets "$RUNNER_TEMP/site/assets"
           touch "$RUNNER_TEMP/site/.nojekyll"
       - name: Enviar o site para publicação
