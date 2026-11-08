@@ -728,3 +728,24 @@ footer>p,footer small{color:#d3c5bb}
 
 /* Marrom original apenas na faixa da contagem. */
 .offer-banner-slot .offer-banner{background:#543c30;color:#fff}
+
+/* Depoimentos: molduras prontas para prints reais, com rolagem horizontal. */
+.testimonials-section{padding:64px max(24px,calc((100vw - 1100px)/2));background:#f6efdf;text-align:center;overflow:hidden}
+.testimonials-section .section-title{margin-bottom:24px}
+.testimonials-section h2{color:#543c30;font-size:clamp(30px,4vw,48px);line-height:1.18}
+.testimonials-section .eyebrow{color:#886449}
+.testimonials-count{max-width:680px;margin:0 auto;padding:14px 24px;border:1px solid #dbc7ad;border-radius:50px;background:#f4e4dc;color:#684b3c;font-size:16px;line-height:1.5}
+.testimonials-count strong{color:#a92b2b}
+.testimonials-preview-note{margin:15px auto 24px;color:#807466;font-size:12px}
+.testimonials-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#c5b098 transparent;padding:4px 2px 20px;text-align:left;-webkit-overflow-scrolling:touch}
+.testimonials-track:focus-visible{outline:2px solid #886449;outline-offset:4px}
+.testimonial-placeholder{flex:0 0 calc((100% - 40px)/3);min-width:260px;min-height:370px;border:1px solid #dfd6cb;border-radius:24px;background:#fffdf9;scroll-snap-align:start;overflow:hidden;box-shadow:0 6px 20px #543c3008}
+.testimonial-placeholder-top{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid #eee5db;color:#8a7968;font-size:10px;letter-spacing:1.5px}
+.testimonial-placeholder-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#f0e5d7;color:#70533e;font:36px Georgia,serif;padding-top:12px}
+.testimonial-placeholder-body{padding:26px 24px 30px}
+.testimonial-placeholder-mark{font-size:26px;color:#bb9a7d}
+.testimonial-placeholder h3{margin:18px 0 12px;font-family:Georgia,serif;font-size:32px;font-weight:400;color:#543c30;line-height:1.1}
+.testimonial-placeholder-body p{max-width:230px;font-size:13px;line-height:1.6;color:#8a7e71}
+.testimonial-placeholder-tag{display:inline-block;margin-top:26px;border:1px dashed #d4c2ac;border-radius:6px;padding:8px 10px;font-size:8px;letter-spacing:1px;color:#8b7963}
+.testimonials-cta{margin-top:26px}
+@media(max-width:600px){.testimonials-section{padding:42px 16px}.testimonials-section .section-title{margin-bottom:20px}.testimonials-count{padding:13px 18px;font-size:14px}.testimonials-preview-note{font-size:11px;max-width:270px;margin-bottom:20px}.testimonials-track{gap:14px;margin-right:-16px;padding-right:16px}.testimonial-placeholder{flex-basis:84%;min-width:0;min-height:350px}.testimonials-cta{font-size:12px;margin-top:20px}}
