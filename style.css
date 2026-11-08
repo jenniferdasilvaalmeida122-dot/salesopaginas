@@ -558,3 +558,10 @@ footer>p,footer small{color:#d3c5bb}
 }
 
 .hero-fan .fan-card-center-planner{background-color:#fff}
+
+/* Inspiração e condições de compra discretas abaixo do leque. */
+.hero-inspiration{max-width:540px;margin:4px auto 0;padding:0 22px;text-align:center;font-size:12px;line-height:1.55;color:var(--muted)}
+.hero-assurances{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;width:max-content;max-width:calc(100% - 36px);margin:16px auto 0;padding:10px 16px;border:1px solid var(--line);border-radius:30px;color:var(--muted);font-size:11px;line-height:1.4}
+.hero-assurances>span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.hero-assurances svg{width:15px;height:15px;flex-shrink:0;color:var(--accent)}
+@media(max-width:600px){.hero-inspiration{max-width:330px;font-size:11px;margin-top:0}.hero-assurances{gap:8px 12px;font-size:10px;padding:9px 12px;margin-top:14px}}
