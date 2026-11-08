@@ -148,3 +148,9 @@ footer{padding-top:38px}
 .testimonials-track{align-items:flex-start}
 .testimonial-placeholder.testimonial-screenshot{min-height:0;padding:0;background:#fff}
 .testimonial-screenshot>img{display:block;width:100%;height:auto;object-fit:contain}
+
+/* Faixa contínua sem saltos; prints inteiros e rolagem nativa ao tocar. */
+.testimonials-track{display:block;scroll-snap-type:none;overflow-anchor:none}
+.testimonial-rail{display:flex;gap:16px;align-items:flex-start;width:100%;will-change:transform}
+@media(max-width:900px){.testimonial-rail{gap:14px}}
+@media(prefers-reduced-motion:reduce){.testimonial-rail{will-change:auto}.testimonials-track{scroll-snap-type:x proximity}}
