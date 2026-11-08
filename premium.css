@@ -177,3 +177,8 @@ footer{padding-top:38px}
 .cards .journey-progress{background:#eee5db;padding:22px 30px 0;align-items:flex-start;overflow:hidden}
 .journey-progress img{display:block;width:100%;height:auto;border-radius:18px 18px 0 0;box-shadow:0 8px 24px #543c3018}
 @media(max-width:900px){.journey-item{flex-basis:85%}.journey-caption{padding:20px 3px 2px}.journey-caption h3{font-size:19px}.journey-caption p{font-size:13px}.cards .journey-progress{padding:20px 26px 0}}
+
+/* Cinco benefícios: títulos compactos e último card com mais espaço. */
+.feature-item h3{font-size:20px;line-height:1.25;text-wrap:balance}
+.feature-item:last-child{grid-column:auto}
+@media(max-width:900px){.feature-item h3{font-size:16px;line-height:1.25}.feature-item:last-child{grid-column:1/-1;min-height:170px}.feature-item:last-child p{max-width:420px}}
