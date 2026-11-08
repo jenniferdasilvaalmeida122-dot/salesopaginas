@@ -144,3 +144,7 @@ footer{padding-top:38px}
 .buyer-avatar.buyer-avatar-group{background-image:url('assets/compradoras-grupo.png');background-size:230.36% 499.29%;background-repeat:no-repeat;background-position-y:49%}
 .buyer-avatar.buyer-avatar-group-left{background-position-x:2%}
 .buyer-avatar.buyer-avatar-group-right{background-position-x:83%}
+
+.testimonials-track{align-items:flex-start}
+.testimonial-placeholder.testimonial-screenshot{min-height:0;padding:0;background:#fff}
+.testimonial-screenshot>img{display:block;width:100%;height:auto;object-fit:contain}
