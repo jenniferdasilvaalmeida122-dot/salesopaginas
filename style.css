@@ -565,3 +565,16 @@ footer>p,footer small{color:#d3c5bb}
 .hero-assurances>span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .hero-assurances svg{width:15px;height:15px;flex-shrink:0;color:var(--accent)}
 @media(max-width:600px){.hero-inspiration{max-width:330px;font-size:11px;margin-top:0}.hero-assurances{gap:8px 12px;font-size:10px;padding:9px 12px;margin-top:14px}}
+
+/* Total de compradores informado pelo responsável pelo produto. */
+.hero-buyers{display:flex;align-items:center;justify-content:center;gap:16px;width:max-content;max-width:calc(100% - 40px);margin:18px auto 0;padding:12px 20px 12px 14px;border:1px solid #dfd4c8;border-radius:50px;background:#fff;box-shadow:0 7px 18px #38261e08}
+.buyer-avatars{display:flex;padding-left:0;flex-shrink:0}
+.buyer-avatar{display:grid;place-items:center;width:32px;height:32px;margin-left:-9px;border:2px solid #fff;border-radius:50%;background:#e8ded2;color:#805e50;overflow:hidden}
+.buyer-avatar:first-child{margin-left:0}
+.buyer-avatar:nth-child(2){background:#d6d8c9;color:#596159}
+.buyer-avatar:nth-child(3){background:#e5d1c5;color:#805e50}
+.buyer-avatar:nth-child(4){background:#e3ddd4;color:#685b4e}
+.buyer-avatar svg{width:21px;height:21px;transform:translateY(2px)}
+.hero-buyers p{font-size:15px;color:var(--ink);line-height:1.4}
+.hero-buyers strong{font-weight:700;color:var(--accent)}
+@media(max-width:600px){.hero-buyers{gap:12px;padding:10px 16px 10px 12px;margin-top:16px}.hero-buyers p{font-size:13px}.buyer-avatar{width:29px;height:29px;margin-left:-9px}.buyer-avatar svg{width:19px;height:19px}}
