@@ -788,3 +788,14 @@ footer>p,footer small{color:#d3c5bb}
 .offer-summary li p,.offer-checkout-note,.offer-secure{color:#64564c}
 @media(max-width:600px){.offer-section{padding-top:40px}}
 @media(prefers-reduced-motion:reduce){.button{transition:none}}
+
+/* Teste pontual: rosa no topo, azul nas chamadas, fundo pastel preservado. */
+.hero .nav,.offer-banner-slot .offer-banner,.offer-banner.offer-banner-pinned{background:#fc3b7f;color:#291e19}
+.offer-banner{border-color:#291e192e}
+.button,.hero-action .button,.closing .button,.offer-buy-button{background:#0032a8;color:#fff;border-color:#002784;box-shadow:0 5px 0 #002477,0 10px 22px #0032a825}
+.button span,.hero-action .button span,.closing .button span{background:#fff;color:#0032a8}
+.button:hover,.hero-action .button:hover,.closing .button:hover{background:#002784;box-shadow:0 5px 0 #001d63,0 12px 24px #0032a830}
+.button:active{box-shadow:0 2px 0 #002477}
+.button:focus-visible{outline-color:#0032a8}
+.offer-buy-button:disabled{background:#0032a8;opacity:1;box-shadow:none}
+.offer-buy-button:disabled:hover{background:#0032a8;transform:none;box-shadow:none}
