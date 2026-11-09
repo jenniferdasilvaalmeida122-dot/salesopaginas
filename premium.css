@@ -182,10 +182,3 @@ footer{padding-top:38px}
 .feature-item h3{font-size:20px;line-height:1.25;text-wrap:balance}
 .feature-item:last-child{grid-column:auto}
 @media(max-width:900px){.feature-item h3{font-size:16px;line-height:1.25}.feature-item:last-child{grid-column:1/-1;min-height:170px}.feature-item:last-child p{max-width:420px}}
-
-/* Planner central apresentado dentro de um aparelho. */
-.hero-fan .fan-card-center-planner{width:32%;aspect-ratio:390/844;top:0;border:2px solid #777875;border-radius:29px;background:#171819;overflow:visible;box-shadow:0 2px 0 #fff inset,0 22px 34px #543c3030,0 0 0 1px #29221e}
-.hero-fan .fan-card-center-planner img{inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);max-width:none;object-fit:contain;object-position:center;border-radius:21px;background:#fff}
-.hero-fan .fan-card-center-planner::before{content:'';position:absolute;z-index:3;top:14px;left:34%;width:32%;height:11px;border-radius:20px;background:#171819;box-shadow:0 0 0 1px #29221e}
-.hero-fan .fan-card-center-planner::after{content:'';position:absolute;z-index:3;bottom:14px;left:35%;width:30%;height:3px;border-radius:10px;background:#29221e}
-@media(max-width:900px){.hero-fan .fan-card-center-planner{width:34%;border-radius:23px}.hero-fan .fan-card-center-planner img{inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);border-radius:17px}.hero-fan .fan-card-center-planner::before{top:11px;height:8px}.hero-fan .fan-card-center-planner::after{bottom:11px;height:2px}}
