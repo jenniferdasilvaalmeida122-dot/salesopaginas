@@ -185,3 +185,5 @@ footer{padding-top:38px}
 
 .bonus-card-image.bonus-food-image{aspect-ratio:auto}
 .bonus-food-image img{display:block;width:100%;height:auto;object-fit:contain}
+
+@media(min-width:901px){.bonus-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bonus-card,.bonus-card:first-child,.bonus-card:nth-child(2){grid-column:auto}}
