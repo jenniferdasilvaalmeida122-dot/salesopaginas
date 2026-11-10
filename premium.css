@@ -224,3 +224,9 @@ footer{padding-top:38px}
 .offer-product-name{font-size:14px;color:var(--ink);font-weight:600;margin-bottom:8px}
 .offer-final-price .offer-price-label{font-size:12px}
 @media(max-width:600px){.offer-summary .offer-bonus-summary li{gap:10px}.offer-summary .offer-bonus-summary li>strong{font-size:12px}.offer-bonus-summary li>span{gap:7px}.offer-bonus-summary del{font-size:10px}.offer-bonus-summary b{font-size:12px}}
+
+.offer-bonus-summary{margin-top:12px}
+.offer-summary .offer-bonus-summary li{justify-content:flex-start;gap:10px}
+.offer-bonus-summary .offer-bonus-check{display:grid;place-items:center;flex:0 0 17px;width:17px;height:17px;border:1px solid #dfcdbd;border-radius:4px;background:#eee5db;color:#543c30;font-size:11px}
+.offer-summary .offer-bonus-summary li>strong{flex:1;min-width:0}
+.offer-bonus-summary li>span:last-child{margin-left:auto}
