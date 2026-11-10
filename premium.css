@@ -182,3 +182,6 @@ footer{padding-top:38px}
 .feature-item h3{font-size:20px;line-height:1.25;text-wrap:balance}
 .feature-item:last-child{grid-column:auto}
 @media(max-width:900px){.feature-item h3{font-size:16px;line-height:1.25}.feature-item:last-child{grid-column:1/-1;min-height:170px}.feature-item:last-child p{max-width:420px}}
+
+.bonus-card-image.bonus-food-image{aspect-ratio:auto}
+.bonus-food-image img{display:block;width:100%;height:auto;object-fit:contain}
