@@ -187,3 +187,9 @@ footer{padding-top:38px}
 .bonus-food-image img{display:block;width:100%;height:auto;object-fit:contain}
 
 @media(min-width:901px){.bonus-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bonus-card,.bonus-card:first-child,.bonus-card:nth-child(2){grid-column:auto}}
+
+/* Valores de referência dos bônus e inclusão gratuita na oferta. */
+.bonus-value{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.bonus-value del{font-size:15px;color:var(--muted);text-decoration-thickness:1.5px}
+.bonus-value strong{font-size:27px;line-height:1.2;font-weight:600;color:#a92b2b;letter-spacing:-.8px}
+.bonus-value>span{flex-basis:100%;font-size:9px;font-weight:600;letter-spacing:1px;color:#543c30}
