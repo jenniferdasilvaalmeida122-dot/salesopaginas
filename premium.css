@@ -230,3 +230,8 @@ footer{padding-top:38px}
 .offer-bonus-summary .offer-bonus-check{display:grid;place-items:center;flex:0 0 17px;width:17px;height:17px;border:1px solid #dfcdbd;border-radius:4px;background:#eee5db;color:#543c30;font-size:11px}
 .offer-summary .offer-bonus-summary li>strong{flex:1;min-width:0}
 .offer-bonus-summary li>span:last-child{margin-left:auto}
+
+/* Miniatura do produto ao lado de cada bônus no resumo. */
+.offer-bonus-summary .offer-bonus-thumbnail{display:block;flex:0 0 42px;width:42px;height:42px;border:1px solid #dfcdbd;border-radius:7px;overflow:hidden;background:#eee5db}
+.offer-bonus-thumbnail img{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:600px){.offer-bonus-summary .offer-bonus-thumbnail{flex-basis:36px;width:36px;height:36px}}
