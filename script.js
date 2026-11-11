@@ -337,3 +337,101 @@ if (offerBanner) {
   source.forEach((node,i)=>{if(targets[i]) targets[i].textContent=node.textContent});
  }).observe(offerBanner,{subtree:true,childList:true,characterData:true});
 }
+
+// Movimento contínuo por transformação; rolagem nativa durante o deslize manual.
+const methodCarousel = document.querySelector('.method-carousel');
+if (methodCarousel) {
+  const slides = [...methodCarousel.querySelectorAll('.method-slide')];
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const rail = document.createElement('div');
+  rail.className = 'method-rail';
+  slides.forEach(slide => rail.append(slide));
+  methodCarousel.append(rail);
+  const speed = 0.032; // 32 pixels por segundo, independente da taxa de atualização.
+  let animation = null, cycle = 0, inView = false, touching = false, keyboardFocused = false;
+  let resumeAt = 0, resumeTimer = 0;
+  function freezeMethods() {
+    if (!animation) return;
+    const position = cycle ? (Number(animation.currentTime || 0) * speed) % cycle : 0;
+    animation.cancel();
+    animation = null;
+    methodCarousel.scrollLeft = position;
+  }
+  function measureMethods() {
+    const copy = rail.querySelector('[data-method-copy]');
+    cycle = copy ? copy.getBoundingClientRect().left - slides[0].getBoundingClientRect().left : 0;
+  }
+  function syncMethods() {
+    clearTimeout(resumeTimer);
+    const enabled = inView && !document.hidden && !motion.matches && !touching && !keyboardFocused;
+    if (!enabled || performance.now() < resumeAt) {
+      freezeMethods();
+      if (enabled) resumeTimer = setTimeout(syncMethods, Math.max(0, resumeAt - performance.now()) + 20);
+      return;
+    }
+    if (animation || cycle <= 0) return;
+    const position = methodCarousel.scrollLeft % cycle;
+    methodCarousel.scrollLeft = 0;
+    animation = rail.animate([
+      {transform: 'translate3d(0,0,0)'},
+      {transform: `translate3d(-${cycle}px,0,0)`}
+    ], {duration: cycle / speed, iterations: Infinity, easing: 'linear'});
+    animation.currentTime = position / speed;
+  }
+  function configureMethods() {
+    freezeMethods();
+    rail.querySelectorAll('[data-method-copy]').forEach(copy => copy.remove());
+    if (!motion.matches) {
+      slides.forEach(slide => {
+        const copy = slide.cloneNode(true);
+        copy.dataset.methodCopy = '';
+        copy.setAttribute('aria-hidden', 'true');
+        copy.style.setProperty('--method-offset', getComputedStyle(slide).getPropertyValue('--method-offset'));
+        copy.querySelectorAll('img').forEach(image => image.alt = '');
+        rail.append(copy);
+      });
+    }
+    measureMethods();
+    syncMethods();
+  }
+  methodCarousel.addEventListener('pointerdown', () => { touching = true; keyboardFocused = false; syncMethods(); }, {passive: true});
+  function releaseMethods() {
+    if (!touching) return;
+    touching = false;
+    resumeAt = performance.now() + 700;
+    syncMethods();
+  }
+  addEventListener('pointerup', releaseMethods, {passive: true});
+  addEventListener('pointercancel', releaseMethods, {passive: true});
+  methodCarousel.addEventListener('wheel', event => {
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) && !event.shiftKey) return;
+    resumeAt = performance.now() + 700;
+    syncMethods();
+  }, {passive: true});
+  methodCarousel.addEventListener('scroll', () => {
+    if (animation || motion.matches) return;
+    resumeAt = performance.now() + 700;
+    syncMethods();
+  }, {passive: true});
+  methodCarousel.addEventListener('focusin', () => {
+    keyboardFocused = methodCarousel.matches(':focus-visible');
+    syncMethods();
+  });
+  methodCarousel.addEventListener('focusout', event => {
+    if (!methodCarousel.contains(event.relatedTarget)) { keyboardFocused = false; syncMethods(); }
+  });
+  methodCarousel.addEventListener('keydown', event => {
+    if (event.target !== methodCarousel || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    keyboardFocused = true;
+    syncMethods();
+    methodCarousel.scrollBy({left: (event.key === 'ArrowRight' ? 1 : -1) * (slides[0].offsetWidth + 20), behavior: motion.matches ? 'instant' : 'smooth'});
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncMethods(); }, {threshold: 0.05}).observe(methodCarousel);
+  } else inView = true;
+  addEventListener('resize', () => { freezeMethods(); measureMethods(); syncMethods(); });
+  document.addEventListener('visibilitychange', syncMethods);
+  motion.addEventListener('change', configureMethods);
+  configureMethods();
+}
