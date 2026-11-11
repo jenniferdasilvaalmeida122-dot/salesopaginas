@@ -100,3 +100,16 @@
 @media(max-width:560px){.hero-visual{width:100%}}
 /* Recortar somente o excesso horizontal de imagens e sombras em movimento. */
 html{overflow-x:clip}
+/* Jornada: cards completos em carrossel contínuo, com gesto nativo. */
+#jornada{padding-bottom:54px}
+#journey-cards{display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;position:relative;touch-action:pan-x pan-y;padding:8px 0 24px;cursor:grab}
+#journey-cards::-webkit-scrollbar{display:none}
+#journey-cards.is-dragging{cursor:grabbing;user-select:none}
+#journey-cards .journey-item{display:flex;flex-direction:column;align-items:stretch;gap:0;flex:0 0 calc((100% - 48px)/3);min-width:0;padding:0;border:0}
+#journey-cards .photo-card{order:0;flex:none;aspect-ratio:1;border-radius:24px}
+#journey-cards .journey-caption{padding:24px 2px 0}
+#journey-cards h3{font-size:1.5rem;line-height:1.2;margin-bottom:12px}
+#journey-cards p{font-size:.9rem;line-height:1.7}
+@media(max-width:900px){#journey-cards .journey-item{flex-basis:calc((100% - 24px)/2)}}
+@media(max-width:560px){#jornada{padding-bottom:30px}#journey-cards{gap:16px}#journey-cards .journey-item{flex-basis:85%}#journey-cards .photo-card{border-radius:22px}#journey-cards h3{font-size:1.4rem}#journey-cards p{font-size:.87rem}}
+@media(prefers-reduced-motion:reduce){#journey-cards [data-journey-copy]{display:none}}

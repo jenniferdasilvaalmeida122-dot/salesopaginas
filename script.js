@@ -1,7 +1,7 @@
 document.querySelector('#year').textContent = new Date().getFullYear();
 
 
-// Rolagem manual dos três cards; sem avanço automático.
+// Navegação manual complementar ao carrossel automático.
 const cardTrack = document.querySelector('#journey-cards');
 if (cardTrack) {
   const cards = [...cardTrack.querySelectorAll('.photo-card')];
@@ -41,6 +41,46 @@ if (cardTrack) {
   updateCardIndicator();
 }
 
+
+// Movimento contínuo da jornada; pausa durante leitura e interação.
+if (cardTrack) {
+  const originals = [...cardTrack.querySelectorAll('.journey-item')];
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const copies = originals.map(item => {
+    const copy = item.cloneNode(true);
+    copy.dataset.journeyCopy = '';
+    copy.setAttribute('aria-hidden', 'true');
+    copy.inert = true;
+    copy.querySelectorAll('img').forEach(img => img.loading = 'eager');
+    cardTrack.append(copy);
+    return copy;
+  });
+  let visible = false, hover = false, focused = false, touching = false;
+  let last = 0, resumeAt = 0, position = cardTrack.scrollLeft;
+  function animateJourney(now) {
+    const delta = last ? Math.min(now - last, 50) : 0;
+    last = now;
+    if (visible && !document.hidden && !motion.matches && !hover && !focused && !touching && now >= resumeAt) {
+      const cycle = copies[0].offsetLeft - originals[0].offsetLeft;
+      if (cycle > 0) { position = (position + delta * 0.028) % cycle; cardTrack.scrollLeft = position; }
+    }
+    else position = cardTrack.scrollLeft;
+    requestAnimationFrame(animateJourney);
+  }
+  cardTrack.addEventListener('mouseenter', () => hover = true);
+  cardTrack.addEventListener('mouseleave', () => hover = false);
+  cardTrack.addEventListener('focusin', () => focused = true);
+  cardTrack.addEventListener('focusout', event => focused = cardTrack.contains(event.relatedTarget));
+  cardTrack.addEventListener('pointerdown', () => touching = true, {passive:true});
+  const release = () => { if (touching) { touching = false; resumeAt = performance.now() + 3000; } };
+  addEventListener('pointerup', release, {passive:true});
+  addEventListener('pointercancel', release, {passive:true});
+  cardTrack.addEventListener('wheel', () => resumeAt = performance.now() + 3000, {passive:true});
+  if ('IntersectionObserver' in window) new IntersectionObserver(entries => visible = entries[0].isIntersecting).observe(cardTrack);
+  else visible = true;
+  motion.addEventListener('change', () => { cardTrack.scrollLeft = 0; });
+  requestAnimationFrame(animateJourney);
+}
 
 // O preço no checkout é administrado separadamente; este aviso mostra o prazo diário.
 const offerBanner = document.querySelector('.offer-banner');
