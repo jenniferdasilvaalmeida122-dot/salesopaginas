@@ -656,7 +656,7 @@ footer>p,footer small{color:#d3c5bb}
 @media(max-width:360px){.bonus-paper-title{font-size:20px}.bonus-art-vision .bonus-paper-title{font-size:20px}.affirmation-front span{font-size:23px}.affirmation-back{font-size:20px}.bonus-check{font-size:8px;padding:5px 0}}
 
 /* Vermelho vinho escuro no banner e nos botões de chamada. */
-.hero .nav{background:#543c30}
+.hero .nav{background:#d83078}
 .button,.hero-action .button,.closing .button{background:#a92b2b;color:#fff}
 .button:hover,.hero-action .button:hover,.closing .button:hover{background:#8e2020}
 .button span,.hero-action .button span,.closing .button span{background:#fff;color:#a92b2b}
