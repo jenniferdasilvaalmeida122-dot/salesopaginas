@@ -220,17 +220,17 @@ html{overflow-x:clip}
 @keyframes button-pulse-bounce{0%,100%{translate:0 0;scale:1}35%{translate:0 -4px;scale:1.035}55%{translate:0 0;scale:1}70%{translate:0 -2px;scale:1.015}}
 @media(prefers-reduced-motion:no-preference){.button:not(:disabled),button:not(:disabled){animation:button-pulse-bounce 2.4s ease-in-out infinite}.button:hover,button:hover,.button:focus-visible,button:focus-visible{animation-play-state:paused}}
 /* Recursos em estilo de aplicativo, preservando a grade 2 + 2 + 1. */
-#sobre{background:linear-gradient(160deg,#fff 0%,#fff5fa 52%,#f3efff 100%);padding:64px clamp(20px,5vw,68px) 72px}
+#sobre{background:#fff;padding:64px clamp(20px,5vw,68px) 72px}
 #sobre .section-title{margin-bottom:28px;text-align:left}
 #sobre h2{color:#241d2b;font-family:Sora,sans-serif;font-weight:550;font-size:clamp(26px,3.3vw,44px);line-height:1.2;letter-spacing:-1px}
 #sobre h2 em{font-family:inherit;font-style:normal;color:#d84083;font-weight:550}
 #sobre .features-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-#sobre .feature-item{grid-column:auto;aspect-ratio:auto;min-height:260px;padding:28px;border:1px solid #eee6f1;border-radius:24px;background:#ffffffed;box-shadow:0 8px 28px #6f39630a,inset 0 1px 0 #fff;transform:none}
+#sobre .feature-item{grid-column:auto;aspect-ratio:auto;min-height:260px;padding:28px;border:1px solid #eee6f1;border-radius:24px;background:#fff;box-shadow:0 8px 28px #6f39630a,inset 0 1px 0 #fff;transform:none}
 #sobre .feature-item:first-child{background:#fff}
 #sobre .feature-item:last-child{grid-column:1/-1;min-height:220px}
-#sobre .feature-symbol{width:44px;height:44px;border:1px solid #f3d4e5;border-radius:14px;background:linear-gradient(145deg,#fff1f7,#eee7ff);color:#bd3878;margin-bottom:28px}
+#sobre .feature-symbol{width:44px;height:44px;border:1px solid #f3d4e5;border-radius:14px;background:#fff;color:#bd3878;margin-bottom:28px}
 #sobre .feature-symbol svg{width:23px;height:23px}
-#sobre .feature-number{top:28px;right:28px;color:#a27399;font:700 11px Manrope,sans-serif;background:#faf1f8;border:1px solid #f0e3ef;border-radius:8px;padding:3px 6px}
+#sobre .feature-number{top:28px;right:28px;color:#a27399;font:700 11px Manrope,sans-serif;background:#fff;border:1px solid #eee6f1;border-radius:8px;padding:3px 6px}
 #sobre .feature-item h3{font-family:Manrope,sans-serif;color:#302637;font-size:22px;font-weight:600;letter-spacing:-.6px;line-height:1.3;margin-bottom:12px}
 #sobre .feature-item p{color:#756a7d;font-size:16px;line-height:1.65}
 @media(max-width:560px){#sobre{padding:42px 20px 48px}#sobre .section-title{margin-bottom:24px}#sobre h2{font-size:clamp(23px,6.8vw,29px);letter-spacing:-.8px}#sobre .features-grid{gap:10px}#sobre .feature-item{min-height:178px;padding:18px 14px;border-radius:19px}#sobre .feature-item:last-child{min-height:156px}#sobre .feature-symbol{width:32px;height:32px;border-radius:10px;margin-bottom:20px}#sobre .feature-symbol svg{width:19px;height:19px}#sobre .feature-number{top:23px;right:14px;font-size:10px}#sobre .feature-item h3{font-size:14px;letter-spacing:-.3px;line-height:1.3;margin-bottom:10px}#sobre .feature-item p{font-size:10px;line-height:1.65}}
