@@ -216,3 +216,6 @@ html{overflow-x:clip}
 /* Montagem fornecida: imagem inteira, sem recorte em qualquer tela. */
 .hero .hero-before-after{display:block;width:min(100%,900px);height:auto;margin:20px auto 0;animation:none;transform:none;filter:none}
 .hero-before-after img{display:block;width:100%;height:auto;object-fit:contain}
+/* Destaque contínuo nos botões ativos, sem deslocar o layout. */
+@keyframes button-pulse-bounce{0%,100%{translate:0 0;scale:1}35%{translate:0 -4px;scale:1.035}55%{translate:0 0;scale:1}70%{translate:0 -2px;scale:1.015}}
+@media(prefers-reduced-motion:no-preference){.button:not(:disabled),button:not(:disabled){animation:button-pulse-bounce 2.4s ease-in-out infinite}.button:hover,button:hover,.button:focus-visible,button:focus-visible{animation-play-state:paused}}
