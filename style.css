@@ -234,3 +234,7 @@ html{overflow-x:clip}
 #sobre .feature-item h3{font-family:Manrope,sans-serif;color:#302637;font-size:22px;font-weight:600;letter-spacing:-.6px;line-height:1.3;margin-bottom:12px}
 #sobre .feature-item p{color:#756a7d;font-size:16px;line-height:1.65}
 @media(max-width:560px){#sobre{padding:42px 20px 48px}#sobre .section-title{margin-bottom:24px}#sobre h2{font-size:clamp(23px,6.8vw,29px);letter-spacing:-.8px}#sobre .features-grid{gap:10px}#sobre .feature-item{min-height:178px;padding:18px 14px;border-radius:19px}#sobre .feature-item:last-child{min-height:156px}#sobre .feature-symbol{width:32px;height:32px;border-radius:10px;margin-bottom:20px}#sobre .feature-symbol svg{width:19px;height:19px}#sobre .feature-number{top:23px;right:14px;font-size:10px}#sobre .feature-item h3{font-size:14px;letter-spacing:-.3px;line-height:1.3;margin-bottom:10px}#sobre .feature-item p{font-size:10px;line-height:1.65}}
+/* Headline longa com leitura compacta e quebras equilibradas. */
+.hero h1{max-width:920px;font-size:clamp(30px,3.2vw,46px);font-weight:500;line-height:1.18;letter-spacing:-1.1px;text-wrap:balance;margin-bottom:22px}
+@media(max-width:700px){.hero h1{max-width:540px;font-size:30px;line-height:1.22;letter-spacing:-.7px}}
+@media(max-width:560px){.hero h1{max-width:100%;font-size:clamp(23px,6.1vw,28px);line-height:1.25;letter-spacing:-.5px;margin-bottom:20px}}
