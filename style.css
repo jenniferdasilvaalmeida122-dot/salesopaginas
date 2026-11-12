@@ -238,3 +238,5 @@ html{overflow-x:clip}
 .hero h1{max-width:920px;font-size:clamp(30px,3.2vw,46px);font-weight:500;line-height:1.18;letter-spacing:-1.1px;text-wrap:balance;margin-bottom:22px}
 @media(max-width:700px){.hero h1{max-width:540px;font-size:30px;line-height:1.22;letter-spacing:-.7px}}
 @media(max-width:560px){.hero h1{max-width:100%;font-size:clamp(23px,6.1vw,28px);line-height:1.25;letter-spacing:-.5px;margin-bottom:20px}}
+/* Fonte do título conforme a versão da captura enviada. */
+.hero h1{font-family:Manrope,sans-serif;font-weight:400}
