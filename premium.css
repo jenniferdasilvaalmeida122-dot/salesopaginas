@@ -3,3 +3,4 @@
 @media(max-width:920px){.app-preview-panel{grid-template-columns:1fr;gap:40px}.app-preview-copy{max-width:650px}.app-preview-stage{max-width:520px;width:100%;margin:auto}}
 @media(max-width:560px){.app-preview-tabs{margin-bottom:32px;width:100%;justify-content:flex-start}.app-preview-tabs button{padding:10px 12px;font-size:.68rem}.app-preview-panel{gap:30px}.app-preview-copy h3{font-size:2.25rem}.app-preview-copy p{font-size:.94rem}.app-preview-stage{aspect-ratio:1/1.24}.preview-phone-main,.preview-phone-side{border-width:4px;border-radius:24px}.phone-status{padding:7px 9px;font-size:7px}.phone-status svg{width:20px}.phone-home-indicator{height:3px}}
 @media(max-width:560px){.app-preview-stage{width:calc(100% - 20px);margin-inline:auto}}
+.app-preview-stage{background:#fff}

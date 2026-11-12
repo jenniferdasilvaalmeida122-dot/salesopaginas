@@ -234,3 +234,15 @@ html{overflow-x:clip}
 #sobre .feature-item h3{font-family:Manrope,sans-serif;color:#302637;font-size:22px;font-weight:600;letter-spacing:-.6px;line-height:1.3;margin-bottom:12px}
 #sobre .feature-item p{color:#756a7d;font-size:16px;line-height:1.65}
 @media(max-width:560px){#sobre{padding:42px 20px 48px}#sobre .section-title{margin-bottom:24px}#sobre h2{font-size:clamp(23px,6.8vw,29px);letter-spacing:-.8px}#sobre .features-grid{gap:10px}#sobre .feature-item{min-height:178px;padding:18px 14px;border-radius:19px}#sobre .feature-item:last-child{min-height:156px}#sobre .feature-symbol{width:32px;height:32px;border-radius:10px;margin-bottom:20px}#sobre .feature-symbol svg{width:19px;height:19px}#sobre .feature-number{top:23px;right:14px;font-size:10px}#sobre .feature-item h3{font-size:14px;letter-spacing:-.3px;line-height:1.3;margin-bottom:10px}#sobre .feature-item p{font-size:10px;line-height:1.65}}
+/* Fundo branco em toda a página, inclusive técnicas, oferta e rodapé. */
+:root{--cream:#fff;--blush:#fff;--blush-deep:#fff}
+html,body,.hero,main,main>section,.method-intro,.product-features,.bonus-section,.bonus-card,.offer-card,.offer-product-visual,.offer-product-visual>span,.purchase-guarantee,.purchase-access,.access-steps li,.closing,footer,.site-header .nav,.offer-card-countdown{background:#fff}
+.method-intro{--paper:#fff}
+.method-image{background:#fff}
+.purchase-guarantee,.closing,.offer-card-countdown{color:var(--ink)}
+.guarantee-panel p:not(.eyebrow){color:var(--ink-soft)}
+.guarantee-panel em,.closing em{color:var(--rose)}
+.guarantee-seal{color:var(--rose-deep);border-color:var(--line)}
+.offer-card-countdown .offer-clock{color:var(--rose-deep)}
+.closing{box-shadow:none;border:1px solid var(--line)}
+.bonus-card,.access-steps li{border:1px solid var(--line)}
