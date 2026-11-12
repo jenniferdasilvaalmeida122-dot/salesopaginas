@@ -202,3 +202,13 @@ html{overflow-x:clip}
 @media(min-width:361px) and (max-width:560px){.features-grid .feature-item{padding:12px}.feature-item h3{font-size:.9rem}.feature-item p{font-size:.68rem}.feature-symbol{width:30px;height:30px;margin-bottom:10px}.feature-number{top:14px;right:12px}}
 @media(max-width:360px){.features-grid{grid-template-columns:1fr}.features-grid .feature-item{padding:26px}.feature-item h3{font-size:1.2rem}.feature-item p{font-size:.9rem}.feature-symbol{width:42px;height:42px;margin-bottom:26px}}
 @media(max-width:440px){.features-grid{grid-template-columns:1fr}.features-grid .feature-item{padding:26px}.feature-item h3{font-size:1.2rem}.feature-item p{font-size:.9rem}.feature-symbol{width:42px;height:42px;margin-bottom:26px}}
+
+/* Topo simplificado: somente a logo e o prazo real da oferta. */
+.site-header .nav{flex-wrap:nowrap;justify-content:space-between;padding:8px 18px;gap:18px}
+.site-header .brand{flex:0 0 auto}
+.site-header .brand img{width:42px;height:42px}
+.site-header .offer-banner{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px 16px;margin-left:auto;font-size:.76rem;color:var(--ink-soft)}
+.site-header .offer-banner>span:first-child{display:block;max-width:none;line-height:1.5}
+.site-header .offer-banner strong{font-weight:800}
+.site-header .offer-clock{font-size:1.1rem}
+@media(max-width:560px){.site-header .nav{padding:8px 12px;gap:12px}.site-header .brand img{width:38px;height:38px}.site-header .offer-banner{font-size:.65rem;gap:3px 10px}.site-header .offer-clock{font-size:.94rem}}
