@@ -238,3 +238,8 @@ html{overflow-x:clip}
 .hero h1{max-width:920px;font-size:clamp(30px,3.2vw,46px);font-weight:500;line-height:1.18;letter-spacing:-1.1px;text-wrap:balance;margin-bottom:22px}
 @media(max-width:700px){.hero h1{max-width:540px;font-size:30px;line-height:1.22;letter-spacing:-.7px}}
 @media(max-width:560px){.hero h1{max-width:100%;font-size:clamp(23px,6.1vw,28px);line-height:1.25;letter-spacing:-.5px;margin-bottom:20px}}
+/* Checkout em rosa intenso, com contraste e destaque reforçados. */
+.button.offer-buy-button{background:linear-gradient(135deg,#dc197b,#bd075e);color:#fff;border:2px solid #ec438f;min-height:64px;font-size:.95rem;font-weight:800;box-shadow:0 12px 28px #cf14784d,0 0 0 5px #fbe3ef,inset 0 1px #ffffff55}
+.button.offer-buy-button:hover{background:linear-gradient(135deg,#c80d6b,#a60450);box-shadow:0 16px 36px #cf147866,0 0 0 6px #fbe3ef,inset 0 1px #ffffff55}
+.button.offer-buy-button>span{background:#ffffff30;color:#fff}
+@media(max-width:560px){.button.offer-buy-button{min-height:60px;font-size:.86rem}}

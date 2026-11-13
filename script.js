@@ -237,7 +237,7 @@ function selectPreviewTab(tab) {
   document.querySelector('#preview-step').textContent = `0${previewTabs.indexOf(tab) + 1} / 04`;
   const image = document.querySelector('#preview-image');
   image.alt = screen.alt;
-  image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${key === 'vision-board' ? 'mural-sem-barra-1' : 'fotos-reais-1'}`;
+  image.src = `assets/app-preview/${key}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${key === 'vision-board' ? 'mural-sem-barra-1' : 'vision-planner-identidade-17'}`;
   image.parentElement.dataset.theme = previewTheme;
   const stage = document.querySelector('.app-preview-stage');
   if (stage) {
@@ -247,7 +247,7 @@ function selectPreviewTab(tab) {
     const neighbors = [keys[(index + keys.length - 1) % keys.length], keys[(index + 1) % keys.length]];
     ['#preview-side-left', '#preview-side-right'].forEach((selector, side) => {
       const neighbor = neighbors[side];
-      const version = neighbor === 'vision-board' ? 'mural-sem-barra-1' : 'fotos-reais-1';
+      const version = neighbor === 'vision-board' ? 'mural-sem-barra-1' : 'vision-planner-identidade-17';
       document.querySelector(selector).src = `assets/app-preview/${neighbor}${previewTheme === 'dark' ? '-escuro' : ''}.png?v=${version}`;
     });
   }
