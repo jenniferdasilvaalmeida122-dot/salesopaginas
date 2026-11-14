@@ -300,3 +300,5 @@ html{overflow-x:clip}
 .offer-bonus-summary .offer-main-item>strong{font-weight:800;color:var(--ink);font-size:1.05rem}
 .offer-bonus-summary .offer-main-item b{color:#16803d;font-size:1rem}
 @media(max-width:560px){.offer-bonus-summary .offer-main-item>strong{font-size:.95rem}}
+
+.site-header.is-offer-visible{visibility:hidden;pointer-events:none}.site-header.is-offer-visible .nav{pointer-events:none}
