@@ -282,3 +282,5 @@ html{overflow-x:clip}
 .offer-bonus-total-price small{color:#15803d;background:#dcfce7;border:1px solid #86efac;border-radius:999px;padding:6px 10px;font-size:.65rem;font-weight:800;letter-spacing:.06em;justify-self:end}
 
 .method-intro .method-slide h3{color:#171717}.method-slide h3 .method-person{color:#7d2038}.method-slide h3 .method-topic{color:#171717}
+/* Destaque do nome do produto na frase de fechamento das técnicas. */
+.method-intro>p strong{color:#c8102e}
