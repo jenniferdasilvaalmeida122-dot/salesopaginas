@@ -100,6 +100,7 @@ if (offerBanner) {
     offerDate.textContent = `${parts.day}/${parts.month}/${parts.year}`;
     offerDate.dateTime = `${parts.year}-${parts.month}-${parts.day}`;
     offerClock.textContent = `${hours}:${minutes}:${seconds}`;
+    document.querySelectorAll('[data-offer-countdown]').forEach(clock => { clock.textContent = offerClock.textContent; });
     offerBanner.hidden = false;
   }
   updateOfferCountdown();

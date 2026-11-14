@@ -276,3 +276,7 @@ html{overflow-x:clip}
 .offer-original-price{color:var(--ink-soft);font-size:1rem;text-align:center;margin:12px 0 0}.offer-original-price del{text-decoration-thickness:2px;text-decoration-color:var(--rose);margin:0 4px}
 
 .offer-bonus-total-price{display:grid;gap:4px;text-align:right}.offer-bonus-total-price del{color:var(--ink-soft);font-size:.85rem;text-decoration-thickness:2px}.offer-bonus-total-price strong{font-size:1.3rem}.offer-bonus-total-price small{font-size:.6rem;letter-spacing:.06em;font-weight:800;color:var(--rose-deep)}
+
+.offer-details .offer-deadline{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 24px;letter-spacing:0;font-size:.8rem;border:1px solid #f1cddd;background:#fff0f6;border-radius:18px}
+.offer-deadline strong{font-size:1.65rem;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:.08em;color:#a90d50}
+.offer-bonus-total-price small{color:#15803d;background:#dcfce7;border:1px solid #86efac;border-radius:999px;padding:6px 10px;font-size:.65rem;font-weight:800;letter-spacing:.06em;justify-self:end}
