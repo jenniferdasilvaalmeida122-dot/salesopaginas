@@ -290,3 +290,8 @@ html{overflow-x:clip}
 .offer-deadline strong{color:#d20b35;font-size:1.8rem;font-weight:800}
 .offer-price,.offer-price>span,.offer-price strong{color:#dc104a}
 .offer-price strong{text-shadow:0 3px 12px #dc104a14}
+
+/* Cores solicitadas para o preço anterior e o investimento final. */
+.offer-original-price del{color:#c8102e;text-decoration-color:#111;text-decoration-thickness:2px}
+.offer-price,.offer-price>span,.offer-price strong{color:#16803d}
+.offer-price strong{text-shadow:none}
