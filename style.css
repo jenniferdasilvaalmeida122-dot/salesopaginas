@@ -245,11 +245,11 @@ html{overflow-x:clip}
 @media(max-width:560px){.button.offer-buy-button{min-height:60px;font-size:.86rem}}
 
 /* Três cards originais em leque abaixo do título dos recursos. */
-.features-fan{position:relative;isolation:isolate;width:min(100%,740px);height:440px;margin:12px auto 40px;overflow:hidden;--fan-spread:1;--fan-rotation:1}
+.features-fan{position:relative;isolation:isolate;width:min(100%,640px);height:375px;margin:12px auto 32px;overflow:hidden;--fan-spread:1;--fan-rotation:1}
 .features-fan .fan-card{position:absolute;left:50%;top:8%;width:38%;height:85%;border-radius:16px;background:#fff;box-shadow:0 14px 30px #543c3026;transform:translateX(-50%) translateX(calc(var(--fan-x,0%) * var(--fan-spread))) rotate(calc(var(--fan-angle,0deg) * var(--fan-rotation)));transition:transform .16s ease-out;overflow:hidden}
 .features-fan .fan-card-left{--fan-x:-68%;--fan-angle:-12deg;z-index:1}
 .features-fan .fan-card-center{--fan-x:0%;--fan-angle:-2deg;top:4%;height:90%;z-index:3}
 .features-fan .fan-card-right{--fan-x:68%;--fan-angle:12deg;z-index:2}
 .features-fan .fan-card img{width:100%;height:100%;object-fit:contain}
-@media(max-width:560px){.features-fan{height:280px;margin:6px auto 28px}.features-fan .fan-card{width:42%;border-radius:10px}.features-fan .fan-card-left{--fan-x:-60%}.features-fan .fan-card-right{--fan-x:60%}}
+@media(max-width:560px){.features-fan{width:min(100%,300px);height:240px;margin:6px auto 24px}.features-fan .fan-card{width:42%;border-radius:10px}.features-fan .fan-card-left{--fan-x:-60%}.features-fan .fan-card-right{--fan-x:60%}}
 @media(prefers-reduced-motion:reduce){.features-fan .fan-card{transition:none;transform:translateX(-50%) translateX(var(--fan-x,0%)) rotate(var(--fan-angle,0deg))}}
