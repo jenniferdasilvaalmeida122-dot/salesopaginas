@@ -284,3 +284,9 @@ html{overflow-x:clip}
 .method-intro .method-slide h3{color:#171717}.method-slide h3 .method-person{color:#7d2038}.method-slide h3 .method-topic{color:#171717}
 /* Destaque do nome do produto na frase de fechamento das técnicas. */
 .method-intro>p strong{color:#c8102e}
+
+/* Aviso mais direto e contraste reforçado no preço final. */
+.offer-details .offer-deadline{background:#fff0f1;border:1px solid #f0a1ad;color:#b20b2b;font-weight:800}
+.offer-deadline strong{color:#d20b35;font-size:1.8rem;font-weight:800}
+.offer-price,.offer-price>span,.offer-price strong{color:#dc104a}
+.offer-price strong{text-shadow:0 3px 12px #dc104a14}
