@@ -295,3 +295,8 @@ html{overflow-x:clip}
 .offer-original-price del{color:#c8102e;text-decoration-color:#111;text-decoration-thickness:2px}
 .offer-price,.offer-price>span,.offer-price strong{color:#16803d}
 .offer-price strong{text-shadow:none}
+
+.site-header .offer-banner.is-offer-visible{display:none!important}
+.offer-bonus-summary .offer-main-item>strong{font-weight:800;color:var(--ink);font-size:1.05rem}
+.offer-bonus-summary .offer-main-item b{color:#16803d;font-size:1rem}
+@media(max-width:560px){.offer-bonus-summary .offer-main-item>strong{font-size:.95rem}}

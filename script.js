@@ -343,18 +343,12 @@ if (offerBanner) {
   syncHeader();
 }
 
-// O mesmo prazo comercial aparece na oferta, como na referência.
-if (offerBanner) {
- const copy=offerBanner.cloneNode(true);
- copy.className='offer-card-countdown';
- copy.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
- copy.removeAttribute('hidden');
- document.querySelector('.offer-card').prepend(copy);
- new MutationObserver(()=>{
-  const source=[...offerBanner.querySelectorAll('time,.offer-clock')];
-  const targets=[...copy.querySelectorAll('time,.offer-clock')];
-  source.forEach((node,i)=>{if(targets[i]) targets[i].textContent=node.textContent});
- }).observe(offerBanner,{subtree:true,childList:true,characterData:true});
+// Um contador na oferta; a barra fixa mostra o prazo somente fora dessa seção.
+if (offerBanner && 'IntersectionObserver' in window) {
+  const offerCard = document.querySelector('.offer-card');
+  if (offerCard) new IntersectionObserver(entries => {
+    offerBanner.classList.toggle('is-offer-visible', entries[0].isIntersecting);
+  }, {threshold:0}).observe(offerCard);
 }
 
 // Movimento contínuo por transformação; rolagem nativa durante o deslize manual.
