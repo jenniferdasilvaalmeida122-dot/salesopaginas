@@ -295,6 +295,14 @@ if (heroFan) {
       heroFan.style.removeProperty('--fan-rotation');
       return;
     }
+    if (heroFan.classList.contains('features-fan')) {
+      const bounds = heroFan.getBoundingClientRect();
+      const distance = Math.abs(bounds.top + bounds.height / 2 - innerHeight * 0.55);
+      const openness = Math.max(0, 1 - distance / (innerHeight * 0.55 + bounds.height / 2));
+      heroFan.style.setProperty('--fan-spread', (0.45 + openness * 0.55).toFixed(4));
+      heroFan.style.setProperty('--fan-rotation', (0.35 + openness * 0.65).toFixed(4));
+      return;
+    }
     const top = heroFan.getBoundingClientRect().top + scrollY;
     const travel = Math.max(200, top + heroFan.offsetHeight * 0.5);
     const progress = Math.min(1, Math.max(0, scrollY / travel));
