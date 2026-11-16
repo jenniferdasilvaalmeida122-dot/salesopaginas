@@ -82,7 +82,7 @@ if (cardTrack) {
   requestAnimationFrame(animateJourney);
 }
 
-// Prazo fixo da condição anunciada; o preço do checkout é administrado na Cakto.
+// Relógio diário até meia-noite em Brasília; não determina a validade da oferta.
 const offerBanner = document.querySelector('.offer-banner');
 if (offerBanner) {
   const offerDate = document.querySelector('#offer-date');
@@ -91,11 +91,9 @@ if (offerBanner) {
     timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
   });
-  const offerDeadline = new Date('2026-11-15T00:00:00-03:00');
-  const offerDay = new Date(offerDeadline.getTime() - 1000);
   function updateOfferCountdown() {
-    const parts = Object.fromEntries(brasiliaClock.formatToParts(offerDay).map(part => [part.type, part.value]));
-    const remaining = Math.max(0, Math.ceil((offerDeadline.getTime() - Date.now()) / 1000));
+    const parts = Object.fromEntries(brasiliaClock.formatToParts(new Date()).map(part => [part.type, part.value]));
+    const remaining = 86400 - (Number(parts.hour) * 3600 + Number(parts.minute) * 60 + Number(parts.second));
     const hours = String(Math.floor(remaining / 3600)).padStart(2, '0');
     const minutes = String(Math.floor(remaining % 3600 / 60)).padStart(2, '0');
     const seconds = String(remaining % 60).padStart(2, '0');
@@ -103,14 +101,6 @@ if (offerBanner) {
     offerDate.dateTime = `${parts.year}-${parts.month}-${parts.day}`;
     offerClock.textContent = `${hours}:${minutes}:${seconds}`;
     document.querySelectorAll('[data-offer-countdown]').forEach(clock => { clock.textContent = offerClock.textContent; });
-    if (remaining === 0) {
-      const label = document.querySelector('[data-offer-deadline-label]');
-      if (label) label.textContent = 'Prazo desta condição encerrado';
-      const heading = offerBanner.querySelector('strong');
-      if (heading && heading.textContent !== 'PRAZO ENCERRADO:') heading.textContent = 'PRAZO ENCERRADO:';
-      const badge = document.querySelector('.offer-bonus-total-price small');
-      if (badge) badge.textContent = 'CONSULTE A OFERTA';
-    }
     offerBanner.hidden = false;
   }
   updateOfferCountdown();
