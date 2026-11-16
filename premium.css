@@ -33,16 +33,16 @@
 @media(prefers-reduced-motion:no-preference){.app-preview-theme button,.app-preview-tabs button{animation:button-pulse-bounce 2.4s ease-in-out infinite}.app-preview-theme button:hover,.app-preview-tabs button:hover,.app-preview-theme button:focus-visible,.app-preview-tabs button:focus-visible{animation-play-state:paused}}
 
 /* Avisos discretos com nomes de compradoras, sem indicação de recência. */
-.purchase-notice{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:calc(20px + env(safe-area-inset-bottom));z-index:110;display:flex;align-items:center;gap:12px;width:min(370px,calc(100vw - 32px));padding:16px 38px 16px 16px;box-sizing:border-box;border:1px solid #edd9e1;border-radius:20px;background:#fffdfcf5;box-shadow:0 12px 40px #4a081c26;backdrop-filter:blur(16px);color:var(--ink);animation:purchase-notice-enter .4s ease-out}
+.purchase-notice{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:calc(110px + env(safe-area-inset-bottom));z-index:110;display:flex;align-items:center;gap:9px;width:min(300px,calc(100vw - 32px));padding:10px 36px 10px 10px;box-sizing:border-box;border:1px solid #ffffff80;border-radius:15px;background:rgba(225,225,228,.78);box-shadow:0 8px 24px #0000001f;backdrop-filter:blur(16px);color:var(--ink);animation:purchase-notice-enter .4s ease-out}
 .purchase-notice[hidden]{display:none}
-.purchase-notice-image{flex:0 0 56px;object-fit:contain;border-radius:14px;padding:8px;box-sizing:border-box;background:#fbeef3}
-.purchase-notice-copy{min-width:0;font-size:.78rem;line-height:1.5}
-.purchase-notice-name{display:block;font-size:.95rem;font-weight:800}
-.purchase-notice-city{display:block;color:var(--ink-soft);font-size:.7rem}
-.purchase-notice-copy p{margin:4px 0 0}
+.purchase-notice-image{flex:0 0 42px;width:42px;height:42px;object-fit:contain;border-radius:10px;padding:5px;box-sizing:border-box;background:#ffffff70}
+.purchase-notice-copy{min-width:0;font-size:.7rem;line-height:1.4}
+.purchase-notice-name{display:block;font-size:.82rem;font-weight:800}
+.purchase-notice-city{display:block;color:var(--ink-soft);font-size:.64rem}
+.purchase-notice-copy p{margin:3px 0 0}
 .purchase-notice-close{position:absolute;top:4px;right:4px;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--ink-soft);font-size:24px;cursor:pointer}
-.purchase-notice-close:hover{background:#fbeef3}
+.purchase-notice-close:hover{background:#ffffff70}
 .purchase-notice-close:focus-visible{outline:2px solid var(--rose-deep);outline-offset:1px}
 @keyframes purchase-notice-enter{from{opacity:0;transform:translateX(calc(-100% - 24px))}to{opacity:1;transform:translateX(0)}}
-@media(max-width:560px){.purchase-notice{bottom:calc(12px + env(safe-area-inset-bottom));padding:12px 38px 12px 12px;gap:10px;border-radius:16px}.purchase-notice-name{font-size:.86rem}.purchase-notice-copy{font-size:.74rem}}
+@media(max-width:560px){.purchase-notice{bottom:calc(100px + env(safe-area-inset-bottom));width:min(280px,calc(100vw - 32px));padding:9px 36px 9px 9px;gap:8px;border-radius:14px}.purchase-notice-name{font-size:.78rem}.purchase-notice-copy{font-size:.68rem}}
 @media(prefers-reduced-motion:reduce){.purchase-notice{animation:none}}
