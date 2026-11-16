@@ -333,15 +333,6 @@ if (offerBanner) {
   syncHeader();
 }
 
-// Um contador na oferta; a barra fixa mostra o prazo somente fora dessa seção.
-if (offerBanner && 'IntersectionObserver' in window) {
-  const offerCard = document.querySelector('.offer-card');
-  if (offerCard) new IntersectionObserver(entries => {
-    offerBanner.classList.toggle('is-offer-visible', entries[0].isIntersecting);
-    document.querySelector('.site-header')?.classList.toggle('is-offer-visible', entries[0].isIntersecting);
-  }, {threshold:0}).observe(offerCard);
-}
-
 // Movimento contínuo por transformação; rolagem nativa durante o deslize manual.
 const methodCarousel = document.querySelector('.method-carousel');
 if (methodCarousel) {
