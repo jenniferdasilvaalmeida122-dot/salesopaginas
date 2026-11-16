@@ -87,3 +87,47 @@ if (testimonialCarousel) {
   motion.addEventListener('change', configureTestimonials);
   configureTestimonials();
 }
+
+// Compradoras informadas pela responsável pelo site; sem alegar compra em tempo real.
+(() => {
+  const buyers = [
+    ['Mariana S.', 'São Paulo, SP'], ['Camila R.', 'Belo Horizonte, MG'],
+    ['Juliana M.', 'Goiânia, GO'], ['Fernanda L.', 'Curitiba, PR'],
+    ['Amanda C.', 'Florianópolis, SC'], ['Larissa P.', 'Rio de Janeiro, RJ'],
+    ['Beatriz A.', 'Brasília, DF'], ['Isabela F.', 'Campinas, SP'],
+    ['Gabriela T.', 'Recife, PE'], ['Rafaela N.', 'Fortaleza, CE']
+  ];
+  try { if (sessionStorage.getItem('purchase-notice-dismissed')) return; } catch {}
+  const notice = document.createElement('aside');
+  notice.className = 'purchase-notice';
+  notice.hidden = true;
+  notice.setAttribute('aria-label', 'Compradoras do Vision Planner');
+  notice.innerHTML = '<img class="purchase-notice-image" src="assets/logo.png" width="56" height="56" alt=""><div class="purchase-notice-copy" role="status" aria-live="polite" aria-atomic="true"><strong class="purchase-notice-name"></strong><span class="purchase-notice-city"></span><p>adquiriu o <b>Vision Planner</b></p></div><button class="purchase-notice-close" type="button" aria-label="Fechar notificações de compras">×</button>';
+  document.body.append(notice);
+  let index = 0, timer, closed = false;
+  const schedule = (fn, delay) => { clearTimeout(timer); timer = setTimeout(fn, delay); };
+  function hide() {
+    notice.hidden = true;
+    if (index < buyers.length && !closed) schedule(show, 22000);
+  }
+  function show() {
+    if (closed || index >= buyers.length) return;
+    if (document.hidden) { schedule(show, 4000); return; }
+    const [name, city] = buyers[index++];
+    notice.querySelector('.purchase-notice-name').textContent = name;
+    notice.querySelector('.purchase-notice-city').textContent = city;
+    notice.hidden = false;
+    schedule(hide, 7000);
+  }
+  notice.querySelector('button').addEventListener('click', () => {
+    closed = true;
+    clearTimeout(timer);
+    notice.hidden = true;
+    try { sessionStorage.setItem('purchase-notice-dismissed', '1'); } catch {}
+  });
+  notice.addEventListener('mouseenter', () => clearTimeout(timer));
+  notice.addEventListener('mouseleave', () => { if (!closed) schedule(hide, 7000); });
+  notice.addEventListener('focusin', () => clearTimeout(timer));
+  notice.addEventListener('focusout', () => { if (!closed) schedule(hide, 7000); });
+  schedule(show, 10000);
+})();
